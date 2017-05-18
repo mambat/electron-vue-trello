@@ -1,17 +1,12 @@
 <template>
   <div>
-    <x-header></x-header>
+    <span>This is home page! </span>
   </div>
 </template>
 
 <script>
-  import XHeader from 'components/Header';
-
   export default {
-    name: 'home-page',
-    components: {
-      XHeader
-    }
+    name: 'home-page'
   };
 </script>
 

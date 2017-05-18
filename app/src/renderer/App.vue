@@ -1,13 +1,18 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
+  <div id="surface">
+    <supreme-header></supreme-header>
+    <router-view id="content"></router-view>
   </div>
 </template>
 
 <script>
   import store from 'renderer/vuex/store';
+  import SupremeHeader from 'components/Header';
   export default {
-    store
+    store,
+    components: {
+      SupremeHeader
+    }
   };
 </script>
 

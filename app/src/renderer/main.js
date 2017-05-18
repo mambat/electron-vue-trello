@@ -12,7 +12,7 @@ Vue.use(Router);
 Vue.config.debug = true;
 
 const router = new Router({
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   routes
 });
 
