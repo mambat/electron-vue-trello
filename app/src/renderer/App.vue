@@ -6,10 +6,9 @@
 </template>
 
 <script>
-  import store from 'renderer/vuex/store';
   import SupremeHeader from 'components/Header';
   export default {
-    store,
+    name: 'app',
     components: {
       SupremeHeader
     }
