@@ -8,7 +8,7 @@
     </div>
     <ul class="boards-page-board-section-list">
       <li v-for="item in boardList" :key="item.id" class="boards-page-board-section-list-item">
-        <a class="board-tile" href="#" style="background-color: rgb(75, 191, 107);">
+        <a class="board-tile" href="#/board" style="background-color: rgb(75, 191, 107);">
           <span class="board-tile-fade"></span>
           <span class="board-tile-details is-badged">
               <span :title="item.name" dir="auto" class="board-tile-details-name">{{item.name}}</span>
