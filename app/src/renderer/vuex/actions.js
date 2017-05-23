@@ -1,7 +1,9 @@
+import * as data from '../utils/data';
 import * as types from './mutation-types';
 
 export const hidePopOver = ({commit}) => {
   commit(types.HIDE_POP_OVER);
+  commit(types.CREATE_TEAM_CLOSE);
 };
 
 export const showCreateTeamPopOver = ({commit}) => {
@@ -9,5 +11,12 @@ export const showCreateTeamPopOver = ({commit}) => {
 };
 
 export const createTeam = ({commit}, team) => {
-  commit(types.CREATE_TEAM, team);
+  try {
+    team.id = data.newTeamId();
+    data.saveTeam(team);
+    commit(types.CREATE_TEAM_SUCCESS, team);
+    commit(types.HIDE_POP_OVER);
+  } catch (err) {
+    commit(types.CREATE_TEAM_FAILURE, err);
+  }
 };

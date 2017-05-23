@@ -3,3 +3,4 @@ export const popoverContent = state => state.popover.content;
 
 export const personalBoards = state => state.home.personalBoards;
 export const teamBoards = state => state.home.teamBoards;
+export const createTeamErr = state => state.home.createTeamErr;

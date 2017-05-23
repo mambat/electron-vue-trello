@@ -7,8 +7,8 @@
 
     <board-section
         v-for="item in teamBoards"
-        :key="item.teamId"
-        :section-name="item.teamName"
+        :key="item.id"
+        :section-name="item.name"
         :board-list="item.boards"/>
 
     <div class="boards-page-board-section u-clearfix">

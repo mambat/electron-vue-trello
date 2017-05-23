@@ -1,5 +1,5 @@
 <template>
-  <div class="pop-over" :class="{'is-shown': popoverShown}" style="left: 16px; top: 44px;">
+  <div class="pop-over is-shown" v-if="popoverShown" style="left: 16px; top: 44px;">
     <create-team v-if="isCreateTeam"></create-team>
   </div>
 </template>

@@ -9,11 +9,11 @@
         <div>
           <div>
             <!--<form>-->
-            <p class="error" style="display:none"></p>
+            <p class="error" v-if="createTeamErr">{{createTeamErr.message}}</p>
             <label for="org-display-name">名称</label>
-            <input id="org-display-name" type="text" name="teamName" value="" dir="auto" v-model="teamName">
+            <input id="org-display-name" type="text" name="teamName" value="" dir="auto" v-model="name">
             <label for="org-desc">描述<span class="quiet u-font-weight-normal">(可选)</span></label>
-            <textarea id="org-desc" name="teamDesc" dir="auto" v-model="teamDesc"></textarea>
+            <textarea id="org-desc" name="teamDesc" dir="auto" v-model="desc"></textarea>
             <input class="primary wide" type="submit" value="创建" :disabled="submitDisabled" @click="save">
             <!--</form>-->
             <hr>
@@ -26,19 +26,24 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
 
   export default {
     name: 'create-team',
     data: function () {
       return {
-        teamName: '',
-        teamDesc: '',
+        name: '',
+        desc: '',
         submitDisabled: true
       };
     },
+    computed: {
+      ...mapGetters([
+        'createTeamErr'
+      ])
+    },
     watch: {
-      teamName: function (newValue, oldValue) {
+      name: function (newValue, oldValue) {
         this.submitDisabled = newValue === '';
       }
     },
@@ -51,11 +56,10 @@
         this.hidePopOver();
       },
       save: function () {
-        let team = {
-          teamName: this.teamName,
-          teamDesc: this.teamDesc
-        };
-        this.createTeam(team);
+        this.createTeam({
+          name: this.name,
+          desc: this.desc
+        });
       }
     }
   };

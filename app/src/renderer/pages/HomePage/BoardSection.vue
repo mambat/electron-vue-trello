@@ -45,7 +45,9 @@
       },
       boardList: {
         type: Array,
-        default: []
+        default: function () {
+          return [];
+        }
       }
     }
   };
