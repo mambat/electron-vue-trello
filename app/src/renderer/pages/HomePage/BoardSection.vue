@@ -8,7 +8,7 @@
     </div>
     <ul class="boards-page-board-section-list">
       <li v-for="item in boardList" :key="item.id" class="boards-page-board-section-list-item">
-        <a class="board-tile" href="#" style="background-color: rgb(0, 121, 191);">
+        <a class="board-tile" href="#" style="background-color: rgb(75, 191, 107);">
           <span class="board-tile-fade"></span>
           <span class="board-tile-details is-badged">
               <span :title="item.name" dir="auto" class="board-tile-details-name">{{item.name}}</span>
@@ -24,7 +24,7 @@
       </li>
       <li class="boards-page-board-section-list-item">
         <a class="board-tile mod-add" href="#">
-          <span>Create new board…</span>
+          <span>创建新看板…</span>
         </a>
       </li>
     </ul>
