@@ -18,9 +18,9 @@ export function removeClass (obj, cls) {
 
 export function hasClass (obj, cls) {
   let objCls = obj.className;
-  let objClsLst = objCls.split(/\s+/);
-  for (let e in objClsLst) {
-    if (objClsLst[e] === cls) return true;
+  let objClsList = objCls.split(/\s+/);
+  for (let e in objClsList) {
+    if (objClsList[e] === cls) return true;
   }
   return false;
 }
