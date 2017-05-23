@@ -1,2 +1,5 @@
 export const popoverShown = state => state.popover.shown;
 export const popoverContent = state => state.popover.content;
+
+export const personalBoards = state => state.home.personalBoards;
+export const teamBoards = state => state.home.teamBoards;

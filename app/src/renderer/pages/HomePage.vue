@@ -3,8 +3,14 @@
     <board-section
         section-name="个人看板"
         :personal="true"
-        :board-list="personalBoardList">
-    </board-section>
+        :board-list="personalBoards"/>
+
+    <board-section
+        v-for="item in teamBoards"
+        :key="item.teamId"
+        :section-name="item.teamName"
+        :board-list="item.boards"/>
+
     <div class="boards-page-board-section u-clearfix">
       <a class="quiet-button u-float-left" href="javascript:void(0);" @click="showCreateTeamPopOver">
         <span>创建新的团队…</span>
@@ -14,7 +20,7 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
   import * as style from '../utils/style';
   import BoardSection from './HomePage/BoardSection';
 
@@ -23,12 +29,11 @@
     components: {
       BoardSection
     },
-    data: function () {
-      return {
-        personalBoardList: [
-          {id: 'welcome-board', name: '欢迎看板'}
-        ]
-      };
+    computed: {
+      ...mapGetters([
+        'personalBoards',
+        'teamBoards'
+      ])
     },
     created: function () {
       this.toggleBodyClass();
