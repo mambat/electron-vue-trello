@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page-wrapper">
+  <div>
     <board-section
         section-name="个人看板"
         :personal="true"
