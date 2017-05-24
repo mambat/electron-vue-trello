@@ -15,7 +15,7 @@ export const createTeam = ({commit}, team) => {
     team.id = data.newTeamId();
     data.saveTeam(team);
     commit(types.CREATE_TEAM_SUCCESS, team);
-    commit(types.HIDE_POP_OVER);
+    this.hidePopOver({commit});
   } catch (err) {
     commit(types.CREATE_TEAM_FAILURE, err);
   }
