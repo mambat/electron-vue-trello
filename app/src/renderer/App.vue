@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <div id="surface">
       <supreme-header></supreme-header>
       <router-view id="content"></router-view>

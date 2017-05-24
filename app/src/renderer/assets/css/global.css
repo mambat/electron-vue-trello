@@ -4500,7 +4500,7 @@ body {
   display: none
 }
 
-#surface, body, html {
+#surface, #app, body, html {
   height: 100%
 }
 
