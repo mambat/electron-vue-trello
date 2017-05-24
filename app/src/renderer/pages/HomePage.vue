@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-page-wrapper">
     <board-section
         section-name="个人看板"
         :personal="true"
@@ -53,5 +53,8 @@
 </script>
 
 <style scoped>
-
+  .home-page-wrapper {
+    width: 100%;
+    height: 100%;
+  }
 </style>

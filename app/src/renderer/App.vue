@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-wrapper">
     <div id="surface">
       <supreme-header></supreme-header>
       <router-view id="content"></router-view>
@@ -23,4 +23,8 @@
 
 <style>
   @import url(assets/css/global.css);
+  .app-wrapper {
+    width: 100%;
+    height: 100%;
+  }
 </style>
