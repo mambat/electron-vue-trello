@@ -18,9 +18,9 @@
                             style="overflow: hidden; word-wrap: break-word; height: 24px;">Advanced</textarea>
                   <p class="list-header-num-cards hide">6 cards</p>
                   <div class="list-header-extras">
-                    <span class="list-header-extras-subscribe hide">
-                      <span class="icon-sm icon-subscribe"></span>
-                    </span>
+                  <span class="list-header-extras-subscribe hide">
+                    <span class="icon-sm icon-subscribe"></span>
+                  </span>
                     <a class="list-header-extras-menu dark-hover" href="#">
                       <span class="icon-sm icon-overflow-menu-horizontal"></span>
                     </a>
@@ -40,11 +40,11 @@
                         Use as many boards as you want. We'll make more!
                       </a>
                       <div class="badges">
-                        <span>
-                          <div class="badge is-icon-only" title="This card has a description.">
-                            <span class="badge-icon icon-sm icon-description"></span>
-                          </div>
-                        </span>
+                      <span>
+                        <div class="badge is-icon-only" title="This card has a description.">
+                          <span class="badge-icon icon-sm icon-description"></span>
+                        </div>
+                      </span>
                         <span><span></span></span>
                       </div>
                       <div class="list-card-members"></div>
