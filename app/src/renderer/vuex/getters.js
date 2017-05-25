@@ -1,4 +1,5 @@
 export const popoverShown = state => state.popover.shown;
+export const popoverPos = state => state.popover.pos;
 export const popoverContent = state => state.popover.content;
 
 export const personalBoards = state => state.home.personalBoards;

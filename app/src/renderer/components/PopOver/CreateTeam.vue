@@ -5,7 +5,7 @@
       <a class="pop-over-header-close-btn icon-sm icon-close" href="javascript:void(0);" @click="close"></a>
     </div>
     <div>
-      <div class="pop-over-content u-fancy-scrollbar" style="height: 297px;">
+      <div class="pop-over-content u-fancy-scrollbar" style="height: 280px;">
         <div>
           <div>
             <!--<form>-->

@@ -17,7 +17,7 @@ const mutations = {
   [types.CREATE_TEAM_FAILURE] (state, err) {
     state.createTeamErr = err;
   },
-  [types.CREATE_TEAM_CLOSE] (state) {
+  [types.CLEAR_CREATE_TEAM_ERR] (state) {
     state.createTeamErr = null;
   }
 };
