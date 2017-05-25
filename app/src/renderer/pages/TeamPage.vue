@@ -49,21 +49,17 @@
 </template>
 
 <script>
-  import * as style from '../utils/style';
+  import bodyClassMixin from '../mixins/body-class-mixin';
 
   export default {
     name: 'team-page',
-    created: function () {
-      this.toggleBodyClass();
+    mixins: [bodyClassMixin],
+    data: function () {
+      return {
+        bodyClass: 'body-tabbed-page'
+      };
     },
-    destroyed: function () {
-      this.toggleBodyClass();
-    },
-    methods: {
-      toggleBodyClass: function () {
-        style.toggleClass(document.getElementsByTagName('body')[0], 'body-tabbed-page');
-      }
-    }
+    methods: {}
   };
 </script>
 

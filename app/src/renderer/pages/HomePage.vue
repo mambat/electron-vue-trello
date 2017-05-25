@@ -24,11 +24,17 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex';
-  import * as style from '../utils/style';
   import BoardSection from './HomePage/BoardSection';
+  import bodyClassMixin from '../mixins/body-class-mixin';
 
   export default {
     name: 'home-page',
+    mixins: [bodyClassMixin],
+    data: function () {
+      return {
+        bodyClass: 'body-tabbed-page'
+      };
+    },
     components: {
       BoardSection
     },
@@ -39,19 +45,10 @@
         'newTeam'
       ])
     },
-    created: function () {
-      this.toggleBodyClass();
-    },
-    destroyed: function () {
-      this.toggleBodyClass();
-    },
     methods: {
       ...mapActions([
         'showPopOverCreateTeam'
       ]),
-      toggleBodyClass: function () {
-        style.toggleClass(document.getElementsByTagName('body')[0], 'body-tabbed-page');
-      },
       createTeam: function () {
         let rect = this.$refs.createTeamLink.getBoundingClientRect();
         this.showPopOverCreateTeam({
