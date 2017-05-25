@@ -37,7 +37,7 @@
       target: {adding: '', editing: ''},
       addList: false,
       lists: [{id: '1', name: 'Stuff to try (this is a list)', cards: [{title: 'Cards do many cool things. Click on this card to open it and learn more...'}, {title: 'Add members to a board (via the sidebar) to collaborate, share and discuss.'}]}, {id: '2', name: 'Tried it (another list)', cards: []}],
-      listContent: ''
+      listContent: '',
       bodyClass: 'body-board-view'
     }),
     methods: {
