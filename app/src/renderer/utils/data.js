@@ -13,30 +13,30 @@ export const personalBoards = [
 ];
 
 export const teamBoards = [
-  {
-    id: 't000',
-    name: '小猩猩队',
-    boards: [
-      {id: 't000_000', name: '201705'},
-      {id: 't000_001', name: '201706'}
-    ]
-  },
-  {
-    id: 't001',
-    name: '自由意志',
-    boards: [
-      {id: 't001_000', name: '201705'},
-      {id: 't001_001', name: '201706'}
-    ]
-  },
-  {
-    id: 't002',
-    name: '帝江混沌',
-    boards: [
-      {id: 't002_000', name: '201705'},
-      {id: 't002_001', name: '201706'}
-    ]
-  }
+  // {
+  //   id: 't000',
+  //   name: '小猩猩队',
+  //   boards: [
+  //     {id: 't000_000', name: '201705'},
+  //     {id: 't000_001', name: '201706'}
+  //   ]
+  // },
+  // {
+  //   id: 't001',
+  //   name: '自由意志',
+  //   boards: [
+  //     {id: 't001_000', name: '201705'},
+  //     {id: 't001_001', name: '201706'}
+  //   ]
+  // },
+  // {
+  //   id: 't002',
+  //   name: '帝江混沌',
+  //   boards: [
+  //     {id: 't002_000', name: '201705'},
+  //     {id: 't002_001', name: '201706'}
+  //   ]
+  // }
 ];
 
 export function newTeamId () {

@@ -1,18 +1,21 @@
 <template>
   <div>
-    <board-section
-        section-name="个人看板"
-        :personal="true"
-        :board-list="personalBoards"/>
+    <board-section section-name="个人看板"
+                   :personal="true"
+                   :board-list="personalBoards">
+    </board-section>
 
-    <board-section
-        v-for="item in teamBoards"
-        :key="item.id"
-        :section-name="item.name"
-        :board-list="item.boards"/>
+    <board-section v-for="item in teamBoards"
+                   :key="item.id"
+                   :section-name="item.name"
+                   :board-list="item.boards">
+    </board-section>
 
     <div class="boards-page-board-section u-clearfix">
-      <a class="quiet-button u-float-left" href="javascript:void(0);" @click="showCreateTeamPopOver">
+      <a ref="createTeamLink"
+         class="quiet-button u-float-left"
+         href="javascript:void(0);"
+         @click="createTeam">
         <span>创建新的团队…</span>
       </a>
     </div>
@@ -43,15 +46,21 @@
     },
     methods: {
       ...mapActions([
-        'showCreateTeamPopOver'
+        'showPopOverCreateTeam'
       ]),
       toggleBodyClass: function () {
         style.toggleClass(document.getElementsByTagName('body')[0], 'body-tabbed-page');
+      },
+      createTeam: function () {
+        let rect = this.$refs.createTeamLink.getBoundingClientRect();
+        this.showPopOverCreateTeam({
+          left: rect.left,
+          top: rect.top
+        });
       }
     }
   };
 </script>
 
 <style scoped>
-
 </style>
