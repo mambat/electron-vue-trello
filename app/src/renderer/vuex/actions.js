@@ -3,7 +3,7 @@ import * as types from './mutation-types';
 
 export const hidePopOver = ({commit}) => {
   commit(types.HIDE_POP_OVER);
-  commit(types.CREATE_TEAM_CLOSE);
+  commit(types.CLEAR_CREATE_TEAM_ERR);
 };
 
 export const showPopOverCreateTeam = ({commit}, pos) => {
