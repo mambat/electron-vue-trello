@@ -35,7 +35,8 @@
     computed: {
       ...mapGetters([
         'personalBoards',
-        'teamBoards'
+        'teamBoards',
+        'newTeam'
       ])
     },
     created: function () {
@@ -57,6 +58,11 @@
           left: rect.left,
           top: rect.top
         });
+      }
+    },
+    watch: {
+      newTeam: function (newValue, oldValue) {
+        this.$router.push('team/' + newValue.id);
       }
     }
   };
