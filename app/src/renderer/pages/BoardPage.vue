@@ -118,6 +118,7 @@
         this.addList = false;
       },
       addListToBoard () {
+        if (this.isEmpty(this.listContent)) return;
         let list = {id: this.mockGenerateListId(), name: this.listContent, cards: []};
         this.lists.push(list);
         this.listContent = '';
