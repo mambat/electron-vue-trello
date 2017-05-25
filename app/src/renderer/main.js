@@ -1,17 +1,15 @@
+import store from 'renderer/vuex/store';
 import Vue from 'vue';
 import Electron from 'vue-electron';
 import Resource from 'vue-resource';
 import Router from 'vue-router';
-import Sortable from 'vue-sortable';
 
 import App from './App';
 import routes from './routes';
-import store from 'renderer/vuex/store';
 
 Vue.use(Electron);
 Vue.use(Resource);
 Vue.use(Router);
-Vue.use(Sortable);
 Vue.config.debug = true;
 
 const router = new Router({
