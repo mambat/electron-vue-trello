@@ -5,7 +5,7 @@ import Resource from 'vue-resource';
 import Router from 'vue-router';
 
 import App from './App';
-import routes from './routes';
+import routes from './router/routes';
 
 Vue.use(Electron);
 Vue.use(Resource);

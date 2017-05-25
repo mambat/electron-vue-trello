@@ -12,7 +12,8 @@
             <list v-for="list in lists" :list="list" :target="target" @addCardToList="addCardToList" @syncTarget="syncTarget"></list>
             <div class="list-wrapper mod-add" :class="{'is-idle': !addList}">
               <span class="placeholder" @click="openAddListBox">Add a list…</span>
-              <input class="list-name-input" type="text" name="name" placeholder="Add a list…" autocomplete="off" dir="auto" maxlength="512" v-model="listContent">
+              <input class="list-name-input" type="text" name="name" placeholder="Add a list…" autocomplete="off" dir="auto" maxlength="512"
+                     v-model="listContent">
               <div class="list-add-controls u-clearfix">
                 <input class="primary mod-list-add-button" type="submit" value="Save" @click="addListToBoard()">
                 <a class="icon-lg icon-close dark-hover" @click="closeAddListBox"></a>
@@ -26,27 +27,20 @@
 </template>
 
 <script>
-  import * as style from '../utils/style';
   import List from '../components/Boards/List.vue';
+  import bodyClassMixin from '../mixins/body-class-mixin';
 
   export default {
+    name: 'board-page',
+    mixins: [bodyClassMixin],
     data: () => ({
       target: {adding: '', editing: ''},
       addList: false,
       lists: [{id: '1', name: 'Stuff to try (this is a list)', cards: [{title: 'Cards do many cool things. Click on this card to open it and learn more...'}, {title: 'Add members to a board (via the sidebar) to collaborate, share and discuss.'}]}, {id: '2', name: 'Tried it (another list)', cards: []}],
       listContent: ''
+      bodyClass: 'body-board-view'
     }),
-    name: 'board-page',
-    created: function () {
-      this.toggleBodyClass();
-    },
-    destroyed: function () {
-      this.toggleBodyClass();
-    },
     methods: {
-      toggleBodyClass: function () {
-        style.toggleClass(document.getElementsByTagName('body')[0], 'body-board-view');
-      },
       openAddListBox () {
         this.addList = true;
       },
@@ -62,7 +56,6 @@
       addCardToList (listId, cardContent) {
         let card = {title: cardContent};
         this.lists[this.lists.findIndex((n) => n.id === listId)].cards.push(card);
-        this.cardContent = '';
       },
       syncTarget (obj) {
         this.target = Object.assign({}, this.target, obj);

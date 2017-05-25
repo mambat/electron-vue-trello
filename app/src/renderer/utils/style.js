@@ -26,5 +26,6 @@ export function hasClass (obj, cls) {
 }
 
 export function toggleClass (obj, cls) {
+  if (!cls) return;
   hasClass(obj, cls) ? removeClass(obj, cls) : addClass(obj, cls);
 }
