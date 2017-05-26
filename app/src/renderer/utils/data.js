@@ -1,11 +1,17 @@
 /**
  * Created by wanglei on 17/5/23.
  */
-function ExpectedError () {
-  this.message = 'expected error';
-  this.toString = function () {
-    return this.message;
-  };
+function randomThrowError () {
+  function ExpectedError () {
+    this.message = 'expected error';
+    this.toString = function () {
+      return this.message;
+    };
+  }
+
+  if (Math.random() < 0.5) {
+    throw new ExpectedError();
+  }
 }
 
 export const personalBoards = [
@@ -47,8 +53,21 @@ export function newTeamId () {
 }
 
 export function saveTeam (team) {
-  if (Math.random() < 0.5) {
-    throw new ExpectedError();
-  }
-  console.log(JSON.stringify(team));
+  randomThrowError();
+  console.log('saveTeam: ' + team);
+}
+
+export function queryTeam (id) {
+  return {
+    id: id,
+    name: 'fakedName',
+    desc: 'fakedDesc',
+    site: 'fakedSite',
+    abbr: 'fakedAbbr'
+  };
+}
+
+export function updateTeam (team) {
+  randomThrowError();
+  console.log('updateTeam: ' + team);
 }
