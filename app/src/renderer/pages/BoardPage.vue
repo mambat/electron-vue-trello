@@ -9,8 +9,10 @@
         </div>
         <div class="board-canvas">
           <div id="board" class="u-fancy-scrollbar">
-            <list v-for="list in lists" :list="list" :target="target" @addCardToList="addCardToList" @syncTarget="syncTarget"></list>
-            <div class="list-wrapper mod-add" :class="{'is-idle': !addList}">
+            <draggable v-model="lists" >
+              <list v-for="list in lists" :list="list" :target="target" @addCardToList="addCardToList" @syncTarget="syncTarget"></list>
+            </draggable>
+              <div class="list-wrapper mod-add" :class="{'is-idle': !addList}">
               <span class="placeholder" @click="openAddListBox">Add a list…</span>
               <input class="list-name-input" type="text" name="name" placeholder="Add a list…" autocomplete="off" dir="auto" maxlength="512"
                      v-model="listContent">
