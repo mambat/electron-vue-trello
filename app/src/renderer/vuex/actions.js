@@ -17,14 +17,37 @@ export const createTeam = ({commit}, team) => {
     commit(types.CREATE_TEAM_SUCCESS, team);
     this.hidePopOver({commit});
   } catch (err) {
-    commit(types.CREATE_TEAM_FAILURE, err);
+    commit(types.CREATE_TEAM_FAILURE, err.message);
   }
+};
+
+export const queryTeam = ({commit}, id) => {
+  try {
+    let team = data.queryTeam(id);
+    commit(types.QUERY_TEAM_SUCCESS, team);
+  } catch (err) {
+    commit(types.QUERY_TEAM_FAILURE, err.message);
+  }
+};
+
+export const updateTeam = ({commit}, team) => {
+  try {
+    data.updateTeam(team);
+    commit(types.UPDATE_TEAM_SUCCESS, team);
+    this.clearUpdateTeamErr({commit});
+  } catch (err) {
+    commit(types.UPDATE_TEAM_FAILURE, err.message);
+  }
+};
+
+export const clearUpdateTeamErr = ({commit}) => {
+  commit(types.CLEAR_UPDATE_TEAM_ERR);
 };
 
 export const hideQuickCardEditor = ({commit}) => {
   commit(types.HIDE_EDITOR_OVER);
 };
 
-export const showQuickCardEditor = ({commit}) => {
-  commit(types.SHOW_EDITOR_OVER);
+export const showQuickCardEditor = ({commit}, params) => {
+  commit(types.SHOW_EDITOR_OVER, params);
 };

@@ -1,5 +1,5 @@
 <template>
-  <div class="list-card" :class="{'active-card': active}" @mouseover="activate" @mouseout="deactivate">
+  <div ref="card" class="list-card" :class="{'active-card': active}" @mouseover="activate" @mouseout="deactivate">
     <div class="list-card-cover"></div>
     <span class="icon-sm icon-edit list-card-operation dark-hover" @click="quickEditCard"></span>
     <div class="list-card-stickers-area hide">
@@ -47,7 +47,13 @@
         this.active = false;
       },
       quickEditCard () {
-        this.showQuickCardEditor({});
+        let card = this.card;
+        let rect = this.$refs.card.getBoundingClientRect();
+        this.showQuickCardEditor({
+          title: card.title,
+          left: rect.left,
+          top: rect.top
+        });
       }
     }
   };
