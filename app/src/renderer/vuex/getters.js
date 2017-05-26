@@ -8,3 +8,4 @@ export const createTeamErr = state => state.home.createTeamErr;
 export const newTeam = state => state.home.newTeam;
 
 export const editorShown = state => state.editor.shown;
+export const editorParams = state => state.editor.params;
