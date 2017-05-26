@@ -9,63 +9,15 @@
         </div>
         <div class="board-canvas">
           <div id="board" class="u-fancy-scrollbar">
-            <draggable v-model="list" @start="drag=true" @end="drag=false">
-              <div class="list-wrapper" v-for="(item,index) in list">
-                <div class="list">
-                  <div class="list-header u-clearfix is-menu-shown">
-                    <div class="list-header-target"></div>
-                    <h2 class="list-header-name-assist" dir="auto">Advanced</h2>
-                    <textarea class="list-header-name mod-list-name" spellcheck="false" dir="auto" maxlength="512"
-                              style="overflow: hidden; word-wrap: break-word; height: 24px;">Advanced</textarea>
-                    <p class="list-header-num-cards hide">6 cards</p>
-                    <div class="list-header-extras">
-                  <span class="list-header-extras-subscribe hide">
-                    <span class="icon-sm icon-subscribe"></span>
-                  </span>
-                      <a class="list-header-extras-menu dark-hover" href="#">
-                        <span class="icon-sm icon-overflow-menu-horizontal"></span>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="list-cards u-fancy-scrollbar u-clearfix">
-                    <div v-show="item === 'Bar'" class="list-card">
-                      <div class="list-card-cover"></div>
-                      <span class="icon-sm icon-edit list-card-operation dark-hover"></span>
-                      <div class="list-card-stickers-area hide">
-                        <div class="stickers"></div>
-                      </div>
-                      <div class="list-card-details">
-                        <div class="list-card-labels"></div>
-                        <a class="list-card-title" dir="auto" href="/c/kDjRHbGk/14-use-as-many-boards-as-you-want-we-ll-make-more">
-                          <span class="card-short-id hide">#14</span>
-                          Use as many boards as you want. We'll make more!
-                        </a>
-                        <div class="badges">
-                      <span>
-                        <div class="badge is-icon-only" title="This card has a description.">
-                          <span class="badge-icon icon-sm icon-description"></span>
-                        </div>
-                      </span>
-                          <span><span></span></span>
-                        </div>
-                        <div class="list-card-members"></div>
-                      </div>
-                      <p class="list-card-dropzone">Drop files to upload.</p>
-                    </div>
-                  </div>
-                  <a class="open-card-composer" href="#">Add a card…</a>
-                </div>
+            <list v-for="list in lists" :list="list" :target="target" @addCardToList="addCardToList" @syncTarget="syncTarget"></list>
+            <div class="list-wrapper mod-add" :class="{'is-idle': !addList}">
+              <span class="placeholder" @click="openAddListBox">Add a list…</span>
+              <input class="list-name-input" type="text" name="name" placeholder="Add a list…" autocomplete="off" dir="auto" maxlength="512"
+                     v-model="listContent">
+              <div class="list-add-controls u-clearfix">
+                <input class="primary mod-list-add-button" type="submit" value="Save" @click="addListToBoard()">
+                <a class="icon-lg icon-close dark-hover" @click="closeAddListBox"></a>
               </div>
-            </draggable>
-            <div class="list-wrapper mod-add is-idle">
-              <form>
-                <span class="placeholder">Add a list…</span>
-                <input class="list-name-input" type="text" name="name" placeholder="Add a list…" autocomplete="off" dir="auto" maxlength="512">
-                <div class="list-add-controls u-clearfix">
-                  <input class="primary mod-list-add-button" type="submit" value="Save">
-                  <a class="icon-lg icon-close dark-hover" href="#"></a>
-                </div>
-              </form>
             </div>
           </div>
         </div>
@@ -75,23 +27,48 @@
 </template>
 
 <script>
-  import * as style from '../utils/style';
+  import List from '../components/Boards/List.vue';
+  import bodyClassMixin from '../mixins/body-class-mixin';
 
   export default {
     name: 'board-page',
-    created: function () {
-      this.toggleBodyClass();
-    },
-    data () {
-      return {list: ['Foo', 'Bar', 'Baz']};
-    },
-    destroyed: function () {
-      this.toggleBodyClass();
-    },
+    mixins: [bodyClassMixin],
+    data: () => ({
+      target: {adding: '', editing: ''},
+      addList: false,
+      lists: [{id: '1', name: 'Stuff to try (this is a list)', cards: [{title: 'Cards do many cool things. Click on this card to open it and learn more...'}, {title: 'Add members to a board (via the sidebar) to collaborate, share and discuss.'}]}, {id: '2', name: 'Tried it (another list)', cards: []}],
+      listContent: '',
+      bodyClass: 'body-board-view'
+    }),
     methods: {
-      toggleBodyClass: function () {
-        style.toggleClass(document.getElementsByTagName('body')[0], 'body-board-view');
+      openAddListBox () {
+        this.addList = true;
+      },
+      closeAddListBox () {
+        this.addList = false;
+      },
+      addListToBoard () {
+        if (this.isEmpty(this.listContent)) return;
+        let list = {id: this.mockGenerateListId(), name: this.listContent, cards: []};
+        this.lists.push(list);
+        this.listContent = '';
+      },
+      addCardToList (listId, cardContent) {
+        let card = {title: cardContent};
+        this.lists[this.lists.findIndex((n) => n.id === listId)].cards.push(card);
+      },
+      syncTarget (obj) {
+        this.target = Object.assign({}, this.target, obj);
+      },
+      isEmpty (str) {
+        return typeof str === 'undefined' || str === null || str.trim() === '';
+      },
+      mockGenerateListId () {
+        return new Date().getTime();
       }
+    },
+    components: {
+      List
     }
   };
 </script>

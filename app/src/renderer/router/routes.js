@@ -10,6 +10,11 @@ export default [
     component: require('pages/BoardPage')
   },
   {
+    path: '/team/:id',
+    name: 'team-page',
+    component: require('pages/TeamPage')
+  },
+  {
     path: '*',
     redirect: '/'
   }

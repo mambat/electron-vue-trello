@@ -3,7 +3,7 @@ import * as types from './mutation-types';
 
 export const hidePopOver = ({commit}) => {
   commit(types.HIDE_POP_OVER);
-  commit(types.CREATE_TEAM_CLOSE);
+  commit(types.CLEAR_CREATE_TEAM_ERR);
 };
 
 export const showPopOverCreateTeam = ({commit}, pos) => {
@@ -19,4 +19,12 @@ export const createTeam = ({commit}, team) => {
   } catch (err) {
     commit(types.CREATE_TEAM_FAILURE, err);
   }
+};
+
+export const hideQuickCardEditor = ({commit}) => {
+  commit(types.HIDE_EDITOR_OVER);
+};
+
+export const showQuickCardEditor = ({commit}) => {
+  commit(types.SHOW_EDITOR_OVER);
 };

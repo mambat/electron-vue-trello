@@ -7,17 +7,19 @@ import * as types from '../mutation-types';
 const state = {
   personalBoards: data.personalBoards,
   teamBoards: data.teamBoards,
-  createTeamErr: null
+  createTeamErr: null,
+  newTeam: {}
 };
 
 const mutations = {
   [types.CREATE_TEAM_SUCCESS] (state, team) {
+    state.newTeam = Object.assign({}, team);
     state.teamBoards.push(team);
   },
   [types.CREATE_TEAM_FAILURE] (state, err) {
     state.createTeamErr = err;
   },
-  [types.CREATE_TEAM_CLOSE] (state) {
+  [types.CLEAR_CREATE_TEAM_ERR] (state) {
     state.createTeamErr = null;
   }
 };

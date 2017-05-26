@@ -1,3 +1,4 @@
+import store from 'renderer/vuex/store';
 import Vue from 'vue';
 import Electron from 'vue-electron';
 import Resource from 'vue-resource';
@@ -5,8 +6,7 @@ import Router from 'vue-router';
 import draggable from 'vuedraggable';
 
 import App from './App';
-import routes from './routes';
-import store from 'renderer/vuex/store';
+import routes from './router/routes';
 
 Vue.use(Electron);
 Vue.use(Resource);
