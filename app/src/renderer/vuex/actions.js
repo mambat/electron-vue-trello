@@ -20,3 +20,11 @@ export const createTeam = ({commit}, team) => {
     commit(types.CREATE_TEAM_FAILURE, err);
   }
 };
+
+export const hideQuickCardEditor = ({commit}) => {
+  commit(types.HIDE_EDITOR_OVER);
+};
+
+export const showQuickCardEditor = ({commit}) => {
+  commit(types.SHOW_EDITOR_OVER);
+};

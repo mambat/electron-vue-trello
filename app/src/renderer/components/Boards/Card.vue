@@ -1,7 +1,7 @@
 <template>
-  <div class="list-card">
+  <div class="list-card" :class="{'active-card': active}" @mouseover="activate" @mouseout="deactivate">
     <div class="list-card-cover"></div>
-    <span class="icon-sm icon-edit list-card-operation dark-hover"></span>
+    <span class="icon-sm icon-edit list-card-operation dark-hover" @click="quickEditCard"></span>
     <div class="list-card-stickers-area hide">
       <div class="stickers"></div>
     </div>
@@ -27,9 +27,28 @@
 <style scoped>
 </style>
 <script>
+  import { mapActions } from 'vuex';
+
   export default {
+    data: () => ({
+      active: false
+    }),
     props: {
       card: Object
+    },
+    methods: {
+      ...mapActions([
+        'showQuickCardEditor'
+      ]),
+      activate () {
+        this.active = true;
+      },
+      deactivate () {
+        this.active = false;
+      },
+      quickEditCard () {
+        this.showQuickCardEditor({});
+      }
     }
   };
 </script>

@@ -6,3 +6,5 @@ export const personalBoards = state => state.home.personalBoards;
 export const teamBoards = state => state.home.teamBoards;
 export const createTeamErr = state => state.home.createTeamErr;
 export const newTeam = state => state.home.newTeam;
+
+export const editorShown = state => state.editor.shown;
