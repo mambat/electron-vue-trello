@@ -9,7 +9,7 @@
         </div>
         <div class="board-canvas">
           <div id="board" class="u-fancy-scrollbar">
-            <draggable v-model="lists" >
+            <draggable v-model="lists" class="draggable-lists">
               <list v-for="list in lists" :list="list" :target="target" @addCardToList="addCardToList" @syncTarget="syncTarget"></list>
             </draggable>
               <div class="list-wrapper mod-add" :class="{'is-idle': !addList}">
@@ -76,5 +76,7 @@
 </script>
 
 <style scoped>
-
+  .draggable-lists {
+    display: inline-block;
+  }
 </style>
