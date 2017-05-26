@@ -7,5 +7,9 @@ export const teamBoards = state => state.home.teamBoards;
 export const createTeamErr = state => state.home.createTeamErr;
 export const newTeam = state => state.home.newTeam;
 
+export const currentTeam = state => state.team.currentTeam;
+export const queryTeamErr = state => state.team.queryErr;
+export const updateTeamErr = state => state.team.updateErr;
+
 export const editorShown = state => state.editor.shown;
 export const editorParams = state => state.editor.params;
