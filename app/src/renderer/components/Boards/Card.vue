@@ -7,7 +7,7 @@
     </div>
     <div class="list-card-details">
       <div class="list-card-labels"></div>
-      <a class="list-card-title" dir="auto" href="/c/kDjRHbGk/14-use-as-many-boards-as-you-want-we-ll-make-more">
+      <a class="list-card-title" dir="auto" href="#">
         <span class="card-short-id hide">#14</span>
         {{card.title}}
                       </a>
