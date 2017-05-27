@@ -28,7 +28,7 @@ const mutations = {
     state.updateErr = '';
   },
   [types.DELETE_TEAM_SUCCESS] (state, id) {
-    if (id === state.currentTeam.id) {
+    if (state.currentTeam.id === id) {
       state.currentTeam = {};
     }
   }
