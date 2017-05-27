@@ -9,7 +9,7 @@
         </div>
         <div class="list-card-details">
           <div class="list-card-labels"></div>
-          <textarea class="list-card-edit-title" dir="auto" style="overflow: hidden; word-wrap: break-word; resize: none; height: 90px;">{{editorParams.title}}</textarea>
+          <textarea class="list-card-edit-title" dir="auto" style="overflow: hidden; word-wrap: break-word; resize: none; height: 90px;" ref="title">{{editorParams.title}}</textarea>
           <div class="badges">
             <span>
               <div class="badge is-icon-only" title="This card has a description.">
@@ -26,7 +26,7 @@
         </div>
         <p class="list-card-dropzone">Drop files to upload.</p>
       </div>
-      <input class="primary wide" type="submit" value="Save">
+      <input class="primary wide" type="submit" value="Save" @click="save">
       <div class="quick-card-editor-buttons fade-in">
         <a class="quick-card-editor-buttons-item" href="#">
           <span class="icon-sm icon-label light"></span>
@@ -71,15 +71,9 @@
     },
     methods: {
       ...mapActions([
-        'hideQuickCardEditor'
+        'hideQuickCardEditor',
+        'saveQuickCardEditor'
       ]),
-      hide (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        if (event.target === event.currentTarget) {
-          this.hideQuickCardEditor({});
-        } // 避免click穿透触发蒙层下元素click事件
-      },
       calPos () {
         if (!this.editorShown) return {};
         return {
@@ -87,6 +81,21 @@
           left: this.editorParams.left + 'px',
           width: '245px'
         };
+      },
+      hide (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (event.target === event.currentTarget) {
+          this.hideQuickCardEditor({});
+        } // 避免click穿透触发蒙层下元素click事件
+      },
+      save () {
+        this.saveQuickCardEditor({
+          belongs: this.editorParams.belongs,
+          id: this.editorParams.id,
+          title: this.$refs.title.value
+        });
+        this.hideQuickCardEditor({});
       }
     }
   };

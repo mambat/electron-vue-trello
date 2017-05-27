@@ -18,7 +18,7 @@
       </div>
       <div class="list-cards u-fancy-scrollbar u-clearfix">
         <card v-for="card in list.cards" :card="card"></card>
-        <div v-show="target.adding===list.id && addCard" class="card-composer">
+        <div v-show="target.adding===list.id && cardAdd" class="card-composer">
           <div class="list-card">
             <div class="list-card-details u-clearfix">
               <div class="list-card-labels u-clearfix"></div>
@@ -28,7 +28,7 @@
           </div>
           <div class="cc-controls u-clearfix">
             <div class="cc-controls-section">
-              <input class="primary confirm mod-compact" type="submit" value="Add" @click="addCardToList(list.id)">
+              <input class="primary confirm mod-compact" type="submit" value="Add" @click="addCard(list.id)">
               <a class="icon-lg icon-close dark-hover" @click="closeAddCardBox"></a>
             </div>
             <div class="cc-controls-section mod-right">
@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <a v-show="target.adding!==list.id || !addCard" class="open-card-composer" @click="openAddCardBox">Add a card…</a>
+      <a v-show="target.adding!==list.id || !cardAdd" class="open-card-composer" @click="openAddCardBox">Add a card…</a>
     </div>
   </div>
 </template>
@@ -46,10 +46,11 @@
 </style>
 <script>
   import Card from '../../components/Boards/Card.vue';
+  import { mapActions } from 'vuex';
 
   export default {
     data: () => ({
-      addCard: false,
+      cardAdd: false,
       newCardContent: ''
     }),
     props: {
@@ -57,18 +58,24 @@
       target: Object
     },
     methods: {
+      ...mapActions([
+        'addCardToList'
+      ]),
       openAddCardBox () {
         this.cleanAddCardBox();
         this.$emit('syncTarget', {adding: this.list.id});
-        this.addCard = true;
+        this.cardAdd = true;
       },
       closeAddCardBox () {
         this.cleanAddCardBox();
-        this.addCard = false;
+        this.cardAdd = false;
       },
-      addCardToList (listId) {
+      addCard (listId) {
         if (this.isEmpty(this.newCardContent)) return;
-        this.$emit('addCardToList', listId, this.newCardContent);
+        this.addCardToList({
+          belongs: listId,
+          title: this.newCardContent
+        });
         this.cleanAddCardBox();
       },
       cleanAddCardBox () {
