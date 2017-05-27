@@ -31,6 +31,10 @@ const mutations = {
     if (state.currentTeam.id === id) {
       state.currentTeam = {};
     }
+  },
+  [types.CREATE_BOARD_SUCCESS] (state, board) {
+    let tid = state.currentTeam.id;
+    if (!tid) return;
   }
 };
 

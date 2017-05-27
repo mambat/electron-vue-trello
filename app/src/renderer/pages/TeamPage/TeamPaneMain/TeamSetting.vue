@@ -17,7 +17,7 @@
   import { mapActions } from 'vuex';
 
   export default {
-    name: 'team-main-setting',
+    name: 'team-setting',
     methods: {
       ...mapActions([
         'showPopOverDeleteTeam'

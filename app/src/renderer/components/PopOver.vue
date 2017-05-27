@@ -6,6 +6,7 @@
     </div>
     <create-team v-if="isCreateTeam && popoverShown"></create-team>
     <delete-team v-if="isDeleteTeam && popoverShown"></delete-team>
+    <create-board v-if="isCreateBoard && popoverShown"></create-board>
   </div>
 </template>
 
@@ -14,12 +15,14 @@
   import * as vals from '../utils/vals';
   import CreateTeam from './PopOver/CreateTeam';
   import DeleteTeam from './PopOver/DeleteTeam';
+  import CreateBoard from './PopOver/CreateBoard';
 
   export default {
     name: 'popover',
     components: {
       CreateTeam,
-      DeleteTeam
+      DeleteTeam,
+      CreateBoard
     },
     data: function () {
       return {
@@ -32,6 +35,7 @@
       ...mapGetters([
         'popoverShown',
         'popoverPos',
+        'popoverParams',
         'popoverContent'
       ]),
       isCreateTeam: function () {
@@ -39,6 +43,9 @@
       },
       isDeleteTeam: function () {
         return this.popoverContent === vals.POP_OVER_DELETE_TEAM;
+      },
+      isCreateBoard: function () {
+        return this.popoverContent === vals.POP_OVER_CREATE_BOARD;
       }
     },
     watch: {
@@ -49,6 +56,9 @@
         } else if (newValue === vals.POP_OVER_DELETE_TEAM) {
           this.headerTitle = '确认删除团队？';
           this.contentHeight = 162;
+        } else if (newValue === vals.POP_OVER_CREATE_BOARD) {
+          this.headerTitle = '创建看板';
+          this.contentHeight = 249;
         }
       }
     },
