@@ -48,7 +48,7 @@
           this.contentHeight = 336;
         } else if (newValue === vals.POP_OVER_DELETE_TEAM) {
           this.headerTitle = '确认删除团队？';
-          this.contentHeight = 116;
+          this.contentHeight = 162;
         }
       }
     },

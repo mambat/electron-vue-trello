@@ -44,37 +44,31 @@
   export default {
     name: 'team-pane-header',
     props: {
-      id: {
-        type: String,
+      team: {
+        type: Object,
         required: true
       }
     },
     data: function () {
       return {
         editMode: false,
-        forEdit: {}
+        forEdit: this.team
       };
     },
     computed: {
       ...mapGetters([
         'currentTeam',
-        'queryTeamErr',
         'updateTeamErr'
       ])
     },
     watch: {
       currentTeam: function (newValue, oldValue) {
-        if (!newValue) return;
         this.forEdit = Object.assign({}, newValue);
         this.editMode = false;
       }
     },
-    created: function () {
-      this.queryTeam(this.id);
-    },
     methods: {
       ...mapActions([
-        'queryTeam',
         'updateTeam',
         'clearUpdateTeamErr'
       ]),
