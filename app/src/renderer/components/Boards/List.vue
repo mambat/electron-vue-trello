@@ -1,11 +1,11 @@
 <template>
   <div class="list-wrapper">
     <div class="list">
-      <div class="list-header u-clearfix is-menu-shown">
-        <div class="list-header-target"></div>
+      <div class="list-header u-clearfix is-menu-shown" @click="editListName">
+        <div class="list-header-target" :class="{'is-hidden': isEditingListName}"></div>
         <h2 class="list-header-name-assist" dir="auto">{{list.name}}</h2>
-        <textarea class="list-header-name mod-list-name" spellcheck="false" dir="auto" maxlength="512"
-                  style="overflow: hidden; word-wrap: break-word; height: 24px;">{{list.name}}</textarea>
+        <textarea class="list-header-name mod-list-name" :class="{'is-editing': isEditingListName}" spellcheck="false" dir="auto" maxlength="512"
+                  style="overflow: hidden; word-wrap: break-word; height: 24px;" ref="listNameFrame">{{list.name}}</textarea>
         <p class="list-header-num-cards hide">{{list.cards.length}} cards</p>
         <div class="list-header-extras">
                   <span class="list-header-extras-subscribe hide">
@@ -17,8 +17,8 @@
         </div>
       </div>
       <div class="list-cards u-fancy-scrollbar u-clearfix">
-        <card v-for="card in list.cards" :card="card"></card>
-        <div v-show="target.adding===list.id && cardAdd" class="card-composer">
+        <card v-for="card in list.cards" :card="card" @syncListNameFrame="syncListNameFrame"></card>
+        <div v-show="isAddingCard" class="card-composer">
           <div class="list-card">
             <div class="list-card-details u-clearfix">
               <div class="list-card-labels u-clearfix"></div>
@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <a v-show="target.adding!==list.id || !cardAdd" class="open-card-composer" @click="openAddCardBox">Add a card…</a>
+      <a v-show="!isAddingCard" class="open-card-composer" @click="openAddCardBox">Add a card…</a>
     </div>
   </div>
 </template>
@@ -50,25 +50,44 @@
 
   export default {
     data: () => ({
-      cardAdd: false,
       newCardContent: ''
     }),
     props: {
       list: Object,
-      target: Object
+      target: Object,
+      listNameEditing: Boolean,
+      cardAdd: Boolean
+    },
+    computed: {
+      isEditingListName () {
+        return this.target.editing === this.list.id && !!this.listNameEditing;
+      },
+      isAddingCard () {
+        return this.target.adding === this.list.id && !!this.cardAdd;
+      }
     },
     methods: {
       ...mapActions([
+        'saveListName',
         'addCardToList'
       ]),
       openAddCardBox () {
         this.cleanAddCardBox();
         this.$emit('syncTarget', {adding: this.list.id});
-        this.cardAdd = true;
+        this.syncListNameFrame(false);
+        this.$emit('syncAddCardBox', true);
       },
       closeAddCardBox () {
         this.cleanAddCardBox();
-        this.cardAdd = false;
+        this.syncListNameFrame(false);
+        this.$emit('syncAddCardBox', false);
+      },
+      editListName () {
+        this.$emit('syncTarget', {editing: this.list.id});
+        this.syncListNameFrame(true);
+      },
+      syncListNameFrame (bol) {
+        this.$emit('syncListNameFrame', bol);
       },
       addCard (listId) {
         if (this.isEmpty(this.newCardContent)) return;
@@ -83,6 +102,20 @@
       },
       isEmpty (str) {
         return typeof str === 'undefined' || str === null || str.trim() === '';
+      }
+    },
+    watch: {
+      isEditingListName (val) {
+        let dom = this.$refs.listNameFrame;
+        if (val) {
+          dom.focus();
+          dom.select();
+        } else {
+          this.saveListName({
+            id: this.list.id,
+            name: dom.value
+          });
+        }
       }
     },
     components: {

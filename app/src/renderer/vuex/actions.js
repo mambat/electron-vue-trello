@@ -57,8 +57,8 @@ export const deleteTeam = ({commit}, id) => {
   this.hidePopOver({commit});
 };
 
-export const hideQuickCardEditor = ({commit}) => {
-  commit(types.HIDE_EDITOR_OVER);
+export const saveListName = ({commit}, params) => {
+  commit(types.SAVE_LIST_NAME_OVER, params);
 };
 
 export const addListToBoard = ({commit}, params) => {
@@ -71,6 +71,10 @@ export const addCardToList = ({commit}, params) => {
 
 export const showQuickCardEditor = ({commit}, params) => {
   commit(types.SHOW_EDITOR_OVER, params);
+};
+
+export const hideQuickCardEditor = ({commit}) => {
+  commit(types.HIDE_EDITOR_OVER);
 };
 
 export const saveQuickCardEditor = ({commit}, params) => {
