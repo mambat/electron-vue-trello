@@ -63,11 +63,21 @@
   import { mapGetters, mapActions } from 'vuex';
 
   export default {
+    updated () {
+      if (this.editorShown) {
+        let dom = this.$refs.title;
+        dom.focus();
+        dom.select();
+      }
+    },
     computed: {
       ...mapGetters([
         'editorShown',
         'editorParams'
-      ])
+      ]),
+      shown () {
+        return typeof this.$refs !== 'undefined' && typeof this.$refs.title !== 'undefined' && !!this.editorShown;
+      }
     },
     methods: {
       ...mapActions([
