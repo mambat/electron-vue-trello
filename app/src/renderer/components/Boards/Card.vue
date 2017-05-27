@@ -49,6 +49,7 @@
       quickEditCard () {
         let card = this.card;
         let rect = this.$refs.card.getBoundingClientRect();
+        this.$emit('syncListNameFrame', false);
         this.showQuickCardEditor({
           belongs: card.belongs,
           id: card.id,

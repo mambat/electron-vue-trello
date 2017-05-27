@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="board-wrapper">
+    <div class="board-wrapper" @click="packup">
       <div class="board-main-content">
         <div class="board-header u-clearfix">
           <a class="board-header-btn board-header-btn-name" href="#">
@@ -10,7 +10,7 @@
         <div class="board-canvas">
           <div id="board" class="u-fancy-scrollbar">
             <draggable v-model="lists" class="draggable-lists">
-              <list v-for="list in lists" :list="list" :target="target" @syncTarget="syncTarget"></list>
+              <list v-for="list in lists" :list="list" :target="target" :cardAdd="cardAdd" :listNameEditing="listNameEditing" @syncTarget="syncTarget" @syncListNameFrame="syncListNameFrame" @syncAddCardBox="syncAddCardBox"></list>
             </draggable>
               <div class="list-wrapper mod-add" :class="{'is-idle': !listAdd}">
               <span class="placeholder" @click="openAddListBox">Add a list…</span>
@@ -40,6 +40,8 @@
       target: {adding: '', editing: ''},
       listAdd: false,
       listContent: '',
+      listNameEditing: false,
+      cardAdd: false,
       bodyClass: 'body-board-view'
     }),
     computed: {
@@ -51,6 +53,13 @@
       ...mapActions([
         'addListToBoard'
       ]),
+      packup () {
+        if (event.target.id === 'board') {
+          this.syncListNameFrame(false);
+          this.closeAddListBox();
+          this.syncAddCardBox(false);
+        } // 避免click穿透触发蒙层下元素click事件
+      },
       openAddListBox () {
         this.listAdd = true;
       },
@@ -66,6 +75,12 @@
       },
       syncTarget (obj) {
         this.target = Object.assign({}, this.target, obj);
+      },
+      syncListNameFrame (bol) {
+        this.listNameEditing = bol;
+      },
+      syncAddCardBox (bol) {
+        this.cardAdd = bol;
       },
       isEmpty (str) {
         return typeof str === 'undefined' || str === null || str.trim() === '';
