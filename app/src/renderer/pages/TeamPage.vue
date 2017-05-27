@@ -1,13 +1,13 @@
 <template>
   <div>
-    <team-pane-header :id="id"></team-pane-header>
+    <team-pane-header :team="currentTeam"></team-pane-header>
     <team-pane-nav :id="id"></team-pane-nav>
     <team-pane-main></team-pane-main>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
   import bodyClassMixin from '../mixins/body-class-mixin';
   import TeamPaneHeader from './TeamPage/TeamPaneHeader';
   import TeamPaneNav from './TeamPage/TeamPaneNav';
@@ -29,7 +29,16 @@
     },
     computed: {
       ...mapGetters([
-        'currentTeam'
+        'currentTeam',
+        'queryTeamErr'
+      ])
+    },
+    created: function () {
+      this.queryTeam(this.id);
+    },
+    methods: {
+      ...mapActions([
+        'queryTeam'
       ])
     },
     watch: {

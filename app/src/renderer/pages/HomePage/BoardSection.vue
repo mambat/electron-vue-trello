@@ -7,33 +7,22 @@
       <h3 class="boards-page-board-section-header-name">{{sectionName}}</h3>
     </div>
     <ul class="boards-page-board-section-list">
-      <li v-for="item in boardList" :key="item.id" class="boards-page-board-section-list-item">
-        <a class="board-tile" href="#/board" style="background-color: rgb(75, 191, 107);">
-          <span class="board-tile-fade"></span>
-          <span class="board-tile-details is-badged">
-              <span :title="item.name" dir="auto" class="board-tile-details-name">{{item.name}}</span>
-          </span>
-          <span class="board-tile-options">
-          <span title="Click to star this board. It will show up at top of your boards list."
-                class="icon-sm icon-star board-tile-options-star-icon">
-          </span>
-          </span>
-          <span class="board-tile-badges"></span>
-        </a>
-        <div class="board-tags u-clearfix"></div>
-      </li>
-      <li class="boards-page-board-section-list-item">
-        <a class="board-tile mod-add" href="#">
-          <span>创建新看板…</span>
-        </a>
-      </li>
+      <board-item v-for="item in boardList" :key="item.id" :item="item"></board-item>
+      <board-add-item></board-add-item>
     </ul>
   </div>
 </template>
 
 <script>
+  import BoardItem from './BoardItem';
+  import BoardAddItem from './BoardAddItem';
+
   export default {
     name: 'board-section',
+    components: {
+      BoardItem,
+      BoardAddItem
+    },
     props: {
       sectionName: {
         type: String,

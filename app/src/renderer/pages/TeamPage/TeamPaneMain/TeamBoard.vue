@@ -1,16 +1,30 @@
 <template>
   <div class="boards-page-board-section">
     <ul class="boards-page-board-section-list">
-      <li class="boards-page-board-section-list-item">
-        <a class="board-tile mod-add" href="#"><span>创建新看板…</span></a>
-      </li>
+      <board-item v-for="item in boardList" :key="item.id" :item="item"></board-item>
+      <board-add-item></board-add-item>
     </ul>
   </div>
 </template>
 
 <script>
+  import BoardItem from '../../HomePage/BoardItem';
+  import BoardAddItem from '../../HomePage/BoardAddItem';
+
   export default {
-    name: 'team-main-board'
+    name: 'team-main-board',
+    components: {
+      BoardItem,
+      BoardAddItem
+    },
+    props: {
+      boardList: {
+        type: Array,
+        default: function () {
+          return [];
+        }
+      }
+    }
   };
 </script>
 
