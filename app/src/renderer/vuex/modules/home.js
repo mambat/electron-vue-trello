@@ -21,6 +21,18 @@ const mutations = {
   },
   [types.CLEAR_CREATE_TEAM_ERR] (state) {
     state.createTeamErr = null;
+  },
+  [types.DELETE_TEAM_SUCCESS] (state, id) {
+    if (state.newTeam.id === id) {
+      state.newTeam = {};
+    }
+    for (let i = 0; i < state.teamBoards.length; i++) {
+      let team = state.teamBoards[i];
+      if (team.id === id) {
+        state.teamBoards.splice(i, 1);
+        break;
+      }
+    }
   }
 };
 
