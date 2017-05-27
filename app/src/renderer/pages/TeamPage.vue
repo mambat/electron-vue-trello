@@ -1,13 +1,13 @@
 <template>
   <div>
     <team-pane-header :id="id"></team-pane-header>
-    <team-pane-nav></team-pane-nav>
+    <team-pane-nav :id="id"></team-pane-nav>
     <team-pane-main></team-pane-main>
   </div>
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex';
   import bodyClassMixin from '../mixins/body-class-mixin';
   import TeamPaneHeader from './TeamPage/TeamPaneHeader';
   import TeamPaneNav from './TeamPage/TeamPaneNav';
@@ -28,13 +28,16 @@
       };
     },
     computed: {
-      ...mapGetters([])
+      ...mapGetters([
+        'currentTeam'
+      ])
     },
-    watch: {},
-    created: function () {
-    },
-    methods: {
-      ...mapActions([])
+    watch: {
+      currentTeam: function (newValue, oldValue) {
+        if (!newValue || !newValue.id) {
+          this.$router.replace('/');
+        }
+      }
     }
   };
 </script>

@@ -1,23 +1,31 @@
 <template>
   <div class="pop-over is-shown" v-show="popoverShown" :style="calcPos()">
-    <create-team v-if="isCreateTeam"></create-team>
+    <div class="pop-over-header">
+      <span class="pop-over-header-title">{{headerTitle}}</span>
+      <a class="pop-over-header-close-btn icon-sm icon-close" href="javascript:void(0);" @click="close"></a>
+    </div>
+    <create-team v-if="isCreateTeam && popoverShown"></create-team>
+    <delete-team v-if="isDeleteTeam && popoverShown"></delete-team>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
   import * as vals from '../utils/vals';
   import CreateTeam from './PopOver/CreateTeam';
+  import DeleteTeam from './PopOver/DeleteTeam';
 
   export default {
     name: 'popover',
     components: {
-      CreateTeam
+      CreateTeam,
+      DeleteTeam
     },
     data: function () {
       return {
-        pageHeaderHeight: 40,
-        createTeamHeight: 336
+        headerTitle: '',
+        contentHeight: 0,
+        pageHeaderHeight: 40
       };
     },
     computed: {
@@ -25,21 +33,41 @@
         'popoverShown',
         'popoverPos',
         'popoverContent'
-      ])
-    },
-    methods: {
+      ]),
       isCreateTeam: function () {
         return this.popoverContent === vals.POP_OVER_CREATE_TEAM;
       },
+      isDeleteTeam: function () {
+        return this.popoverContent === vals.POP_OVER_DELETE_TEAM;
+      }
+    },
+    watch: {
+      popoverContent: function (newValue, oldValue) {
+        if (newValue === vals.POP_OVER_CREATE_TEAM) {
+          this.headerTitle = '新建团队';
+          this.contentHeight = 336;
+        } else if (newValue === vals.POP_OVER_DELETE_TEAM) {
+          this.headerTitle = '确认删除团队？';
+          this.contentHeight = 116;
+        }
+      }
+    },
+    methods: {
+      ...mapActions([
+        'hidePopOver'
+      ]),
       calcPos: function () {
         if (!this.popoverShown) return {};
         let top = this.popoverPos.top;
-        let delta = window.innerHeight - top - this.createTeamHeight;
+        let delta = window.innerHeight - top - this.contentHeight;
         if (delta < 0) top += delta;
         return {
           top: (top < this.pageHeaderHeight ? this.pageHeaderHeight : top) + 'px',
           left: this.popoverPos.left + 'px'
         };
+      },
+      close: function () {
+        this.hidePopOver();
       }
     }
   };

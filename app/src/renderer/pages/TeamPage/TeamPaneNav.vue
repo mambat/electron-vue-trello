@@ -2,68 +2,43 @@
   <div class="tabbed-pane-nav u-clearfix">
     <ul>
       <li class="tabbed-pane-nav-item">
-        <a class="tabbed-pane-nav-item-button active" data-tab="boards" href="/222224">看板</a>
+        <router-link class="tabbed-pane-nav-item-button" :to="boardsLink">看板</router-link>
       </li>
       <li class="tabbed-pane-nav-item">
-        <a class="tabbed-pane-nav-item-button" data-tab="members" href="/222224/members">成员</a>
+        <router-link class="tabbed-pane-nav-item-button" :to="membersLink">成员</router-link>
       </li>
       <li class="tabbed-pane-nav-item">
-        <a class="tabbed-pane-nav-item-button" data-tab="settings" href="/222224/account">设置</a>
+        <router-link class="tabbed-pane-nav-item-button" :to="settingsLink">设置</router-link>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex';
-
   export default {
     name: 'team-pane-nav',
     props: {
       id: {
         type: String,
-        required: false
+        required: true
       }
     },
     data: function () {
       return {
-        editMode: false,
-        forEdit: {}
+        boardsLink: this.buildLink('boards'),
+        membersLink: this.buildLink('members'),
+        settingsLink: this.buildLink('settings')
       };
     },
-    computed: {
-      ...mapGetters([
-        'currentTeam',
-        'queryTeamErr',
-        'updateTeamErr'
-      ])
-    },
-    watch: {
-      currentTeam: function (newValue, oldValue) {
-        if (!newValue) return;
-        this.forEdit = Object.assign({}, newValue);
-        this.editMode = false;
+    created: function () {
+      let defaultPath = '/team/' + this.id;
+      if (this.$route.path === defaultPath) {
+        this.$router.push(defaultPath + '/boards');
       }
     },
-    created: function () {
-      this.queryTeam(this.id);
-    },
     methods: {
-      ...mapActions([
-        'queryTeam',
-        'updateTeam',
-        'clearUpdateTeamErr'
-      ]),
-      editTeam: function () {
-        this.editMode = true;
-      },
-      cancelEdit: function () {
-        this.forEdit = Object.assign({}, this.currentTeam);
-        this.editMode = false;
-        this.clearUpdateTeamErr();
-      },
-      saveTeam: function () {
-        this.updateTeam(this.forEdit);
+      buildLink: function (item) {
+        return '/team/' + this.id + '/' + item;
       }
     }
   };

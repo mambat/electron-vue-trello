@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div style="text-align: center;">Work In Progress</div>
 </template>
 
 <script>

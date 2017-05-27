@@ -16,6 +16,7 @@ Vue.config.debug = true;
 
 const router = new Router({
   scrollBehavior: () => ({y: 0}),
+  linkActiveClass: 'active',
   routes
 });
 

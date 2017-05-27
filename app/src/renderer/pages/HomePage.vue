@@ -59,7 +59,7 @@
     },
     watch: {
       newTeam: function (newValue, oldValue) {
-        this.$router.push('team/' + newValue.id);
+        this.$router.push('/team/' + newValue.id);
       }
     }
   };

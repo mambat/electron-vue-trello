@@ -3,11 +3,14 @@ import * as types from './mutation-types';
 
 export const hidePopOver = ({commit}) => {
   commit(types.HIDE_POP_OVER);
-  commit(types.CLEAR_CREATE_TEAM_ERR);
 };
 
 export const showPopOverCreateTeam = ({commit}, pos) => {
   commit(types.SHOW_POP_OVER_CREATE_TEAM, pos);
+};
+
+export const showPopOverDeleteTeam = ({commit}, pos) => {
+  commit(types.SHOW_POP_OVER_DELETE_TEAM, pos);
 };
 
 export const createTeam = ({commit}, team) => {
@@ -19,6 +22,10 @@ export const createTeam = ({commit}, team) => {
   } catch (err) {
     commit(types.CREATE_TEAM_FAILURE, err.message);
   }
+};
+
+export const clearCreateTeamErr = ({commit}) => {
+  commit(types.CLEAR_CREATE_TEAM_ERR);
 };
 
 export const queryTeam = ({commit}, id) => {
@@ -42,6 +49,12 @@ export const updateTeam = ({commit}, team) => {
 
 export const clearUpdateTeamErr = ({commit}) => {
   commit(types.CLEAR_UPDATE_TEAM_ERR);
+};
+
+export const deleteTeam = ({commit}, id) => {
+  data.deleteTeam(id);
+  commit(types.DELETE_TEAM_SUCCESS, id);
+  this.hidePopOver({commit});
 };
 
 export const hideQuickCardEditor = ({commit}) => {

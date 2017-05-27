@@ -10834,10 +10834,8 @@ a.power-ups-explainer-learn-more:active, a.power-ups-explainer-learn-more:focus,
 
 .attachment-thumbnail-preview {
   border: 1px solid #D6DADC;
-  background-color: #E2E4E6;
-  background-position: center center;
   background-size: cover;
-  background-repeat: no-repeat;
+  background: #E2E4E6 no-repeat center center;
   border-radius: 3px;
   height: 78px;
   margin-top: -40px;

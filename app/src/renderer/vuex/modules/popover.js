@@ -7,7 +7,7 @@ import * as types from '../mutation-types';
 const state = {
   shown: false,
   pos: {},
-  content: vals.POP_OVER_CREATE_TEAM
+  content: ''
 };
 
 const mutations = {
@@ -18,6 +18,11 @@ const mutations = {
     state.shown = true;
     state.pos = Object.assign({}, pos);
     state.content = vals.POP_OVER_CREATE_TEAM;
+  },
+  [types.SHOW_POP_OVER_DELETE_TEAM] (state, pos) {
+    state.shown = true;
+    state.pos = Object.assign({}, pos);
+    state.content = vals.POP_OVER_DELETE_TEAM;
   }
 };
 

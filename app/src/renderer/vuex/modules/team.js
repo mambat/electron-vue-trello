@@ -6,7 +6,8 @@ import * as types from '../mutation-types';
 const state = {
   currentTeam: {},
   queryErr: null,
-  updateErr: null
+  updateErr: null,
+  isLoading: false
 };
 
 const mutations = {
@@ -25,6 +26,11 @@ const mutations = {
   },
   [types.CLEAR_UPDATE_TEAM_ERR] (state) {
     state.updateErr = '';
+  },
+  [types.DELETE_TEAM_SUCCESS] (state, id) {
+    if (id === state.currentTeam.id) {
+      state.currentTeam = {};
+    }
   }
 };
 

@@ -71,3 +71,7 @@ export function updateTeam (team) {
   randomThrowError();
   console.log('updateTeam: ' + team);
 }
+
+export function deleteTeam (id) {
+  console.log('deleteTeam: ' + id);
+}
