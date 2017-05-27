@@ -50,6 +50,8 @@
         let card = this.card;
         let rect = this.$refs.card.getBoundingClientRect();
         this.showQuickCardEditor({
+          belongs: card.belongs,
+          id: card.id,
           title: card.title,
           left: rect.left,
           top: rect.top

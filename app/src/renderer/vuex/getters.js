@@ -11,5 +11,6 @@ export const currentTeam = state => state.team.currentTeam;
 export const queryTeamErr = state => state.team.queryErr;
 export const updateTeamErr = state => state.team.updateErr;
 
-export const editorShown = state => state.editor.shown;
-export const editorParams = state => state.editor.params;
+export const lists = state => state.board.lists;
+export const editorShown = state => state.board.shown;
+export const editorParams = state => state.board.editor;

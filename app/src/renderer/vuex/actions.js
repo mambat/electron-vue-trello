@@ -48,6 +48,18 @@ export const hideQuickCardEditor = ({commit}) => {
   commit(types.HIDE_EDITOR_OVER);
 };
 
+export const addListToBoard = ({commit}, params) => {
+  commit(types.ADD_LIST_TO_BOARD_OVER, params);
+};
+
+export const addCardToList = ({commit}, params) => {
+  commit(types.ADD_CARD_TO_LIST_OVER, params);
+};
+
 export const showQuickCardEditor = ({commit}, params) => {
   commit(types.SHOW_EDITOR_OVER, params);
+};
+
+export const saveQuickCardEditor = ({commit}, params) => {
+  commit(types.SAVE_EDITOR_OVER, params);
 };
