@@ -1,6 +1,6 @@
 <template>
   <div class="pop-over-content u-fancy-scrollbar" style="height: 280px;">
-    <p class="error" v-if="createTeamErr">{{createTeamErr}}</p>
+    <p class="error" v-if="popoverErr">{{popoverErr}}</p>
     <label for="org-display-name">名称</label>
     <input id="org-display-name" type="text" name="teamName" value="" dir="auto" v-model="name">
     <label for="org-desc">描述<span class="quiet u-font-weight-normal">(可选)</span></label>
@@ -25,11 +25,11 @@
     },
     computed: {
       ...mapGetters([
-        'createTeamErr'
+        'popoverErr'
       ])
     },
     beforeDestroy: function () {
-      this.clearCreateTeamErr();
+      this.clearPopOverErr();
     },
     watch: {
       name: function (newValue, oldValue) {
@@ -39,7 +39,7 @@
     methods: {
       ...mapActions([
         'createTeam',
-        'clearCreateTeamErr'
+        'clearPopOverErr'
       ]),
       doCreate: function () {
         this.createTeam({

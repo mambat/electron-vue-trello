@@ -5,6 +5,10 @@ export const hidePopOver = ({commit}) => {
   commit(types.HIDE_POP_OVER);
 };
 
+export const clearPopOverErr = ({commit}) => {
+  commit(types.CLEAR_POP_OVER_ERR);
+};
+
 export const showPopOverCreateTeam = ({commit}, pos) => {
   commit(types.SHOW_POP_OVER_CREATE_TEAM, pos);
 };
@@ -24,12 +28,8 @@ export const createTeam = ({commit}, team) => {
     commit(types.CREATE_TEAM_SUCCESS, team);
     this.hidePopOver({commit});
   } catch (err) {
-    commit(types.CREATE_TEAM_FAILURE, err.message);
+    commit(types.POP_OVER_SUBMIT_FAILURE, err.message);
   }
-};
-
-export const clearCreateTeamErr = ({commit}) => {
-  commit(types.CLEAR_CREATE_TEAM_ERR);
 };
 
 export const queryTeam = ({commit}, id) => {
@@ -62,8 +62,13 @@ export const deleteTeam = ({commit}, id) => {
 };
 
 export const createBoard = ({commit}, board) => {
-  data.createBoard(board);
-  commit(types.CREATE_BOARD_SUCCESS, board);
+  try {
+    data.createBoard(board);
+    commit(types.CREATE_BOARD_SUCCESS, board);
+    this.hidePopOver({commit});
+  } catch (err) {
+    commit(types.POP_OVER_SUBMIT_FAILURE, err.message);
+  }
 };
 
 export const saveListName = ({commit}, params) => {

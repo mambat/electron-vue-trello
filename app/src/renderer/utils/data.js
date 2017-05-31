@@ -76,6 +76,11 @@ export function deleteTeam (id) {
   console.log('deleteTeam: ' + id);
 }
 
+export function newBoardId () {
+  return 'b' + new Date().getTime();
+}
+
 export function createBoard (board) {
-  console.log('createBoard: ' + board);
+  let boardId = newBoardId();
+  board.id = boardId;
 }

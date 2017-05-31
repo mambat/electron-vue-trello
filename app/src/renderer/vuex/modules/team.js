@@ -33,8 +33,19 @@ const mutations = {
     }
   },
   [types.CREATE_BOARD_SUCCESS] (state, board) {
-    let tid = state.currentTeam.id;
-    if (!tid) return;
+    if (!state.currentTeam.id || state.currentTeam.id !== board.teamId) {
+      return;
+    }
+
+    if (!state.currentTeam.boards) {
+      state.currentTeam = Object.assign({}, state.currentTeam, {
+        boards: []
+      });
+    }
+    state.currentTeam.boards.push({
+      id: board.id,
+      name: board.name
+    });
   }
 };
 

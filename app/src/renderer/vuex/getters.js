@@ -1,11 +1,12 @@
+export const personalBoards = state => state.global.personalBoards;
+export const teamBoards = state => state.global.teamBoards;
+
 export const popoverShown = state => state.popover.shown;
 export const popoverPos = state => state.popover.pos;
 export const popoverParams = state => state.popover.params;
 export const popoverContent = state => state.popover.content;
+export const popoverErr = state => state.popover.err;
 
-export const personalBoards = state => state.home.personalBoards;
-export const teamBoards = state => state.home.teamBoards;
-export const createTeamErr = state => state.home.createTeamErr;
 export const newTeam = state => state.home.newTeam;
 
 export const currentTeam = state => state.team.currentTeam;

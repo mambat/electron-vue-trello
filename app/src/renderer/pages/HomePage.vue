@@ -2,13 +2,15 @@
   <div>
     <board-section section-name="个人看板"
                    :personal="true"
-                   :board-list="personalBoards">
+                   :boards="personalBoards">
     </board-section>
 
     <board-section v-for="item in teamBoards"
                    :key="item.id"
+                   :team-id="item.id"
+                   :team-name="item.name"
                    :section-name="item.name"
-                   :board-list="item.boards">
+                   :boards="item.boards">
     </board-section>
 
     <div class="boards-page-board-section u-clearfix">

@@ -1,8 +1,8 @@
 <template>
   <div class="boards-page-board-section">
     <ul class="boards-page-board-section-list">
-      <board-item v-for="item in currentTeam.boardList" :key="item.id" :item="item"></board-item>
-      <board-add-item></board-add-item>
+      <board-item v-for="item in currentTeam.boards" :key="item.id" :item="item"></board-item>
+      <board-add-item :team-id="currentTeam.id" :team-name="currentTeam.name"></board-add-item>
     </ul>
   </div>
 </template>

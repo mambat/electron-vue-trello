@@ -14,6 +14,16 @@
 
   export default {
     name: 'board-add-item',
+    props: {
+      teamId: {
+        type: String,
+        default: ''
+      },
+      teamName: {
+        type: String,
+        default: ''
+      }
+    },
     methods: {
       ...mapActions([
         'showPopOverCreateBoard'
@@ -25,7 +35,10 @@
             left: rect.left,
             top: rect.top
           },
-          params: {}
+          params: {
+            teamId: this.teamId,
+            teamName: this.teamName
+          }
         };
         this.showPopOverCreateBoard(d);
       }

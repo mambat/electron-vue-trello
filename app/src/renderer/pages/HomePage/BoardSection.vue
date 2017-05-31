@@ -7,8 +7,8 @@
       <h3 class="boards-page-board-section-header-name">{{sectionName}}</h3>
     </div>
     <ul class="boards-page-board-section-list">
-      <board-item v-for="item in boardList" :key="item.id" :item="item"></board-item>
-      <board-add-item></board-add-item>
+      <board-item v-for="item in boards" :key="item.id" :item="item"></board-item>
+      <board-add-item :team-id="teamId" :team-name="teamName"></board-add-item>
     </ul>
   </div>
 </template>
@@ -24,6 +24,14 @@
       BoardAddItem
     },
     props: {
+      teamId: {
+        type: String,
+        default: ''
+      },
+      teamName: {
+        type: String,
+        default: ''
+      },
       sectionName: {
         type: String,
         required: true
@@ -32,7 +40,7 @@
         type: Boolean,
         default: false
       },
-      boardList: {
+      boards: {
         type: Array,
         default: function () {
           return [];

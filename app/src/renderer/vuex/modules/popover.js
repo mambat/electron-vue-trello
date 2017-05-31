@@ -8,12 +8,19 @@ const state = {
   shown: false,
   pos: {},
   params: {},
-  content: ''
+  content: '',
+  err: null
 };
 
 const mutations = {
   [types.HIDE_POP_OVER] (state) {
     state.shown = false;
+  },
+  [types.CLEAR_POP_OVER_ERR] (state) {
+    state.err = null;
+  },
+  [types.POP_OVER_SUBMIT_FAILURE] (state, err) {
+    state.err = err;
   },
   [types.SHOW_POP_OVER_CREATE_TEAM] (state, pos) {
     state.shown = true;

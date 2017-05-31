@@ -6,7 +6,9 @@
     </div>
     <create-team v-if="isCreateTeam && popoverShown"></create-team>
     <delete-team v-if="isDeleteTeam && popoverShown"></delete-team>
-    <create-board v-if="isCreateBoard && popoverShown"></create-board>
+    <create-board v-if="isCreateBoard && popoverShown"
+                  :team-id="popoverParams.teamId" :team-name="popoverParams.teamName">
+    </create-board>
   </div>
 </template>
 

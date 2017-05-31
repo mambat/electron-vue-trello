@@ -52,7 +52,7 @@
     data: function () {
       return {
         editMode: false,
-        forEdit: this.team
+        forEdit: Object.assign({}, this.team)
       };
     },
     computed: {
