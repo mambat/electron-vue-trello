@@ -97,3 +97,7 @@ export const hideQuickCardEditor = ({commit}) => {
 export const saveQuickCardEditor = ({commit}, params) => {
   commit(types.SAVE_EDITOR_OVER, params);
 };
+
+export const archiveCard = ({commit}, params) => {
+  commit(types.ARCHIVE_CARD_OVER, params);
+};

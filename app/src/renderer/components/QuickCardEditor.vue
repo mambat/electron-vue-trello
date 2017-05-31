@@ -48,7 +48,7 @@
           <span class="icon-sm icon-clock light"></span>
           <span class="quick-card-editor-buttons-item-text">Change Due Date</span>
         </a>
-        <a class="quick-card-editor-buttons-item js-archive" href="#">
+        <a class="quick-card-editor-buttons-item js-archive" @click="archive">
           <span class="icon-sm icon-archive light"></span>
           <span class="quick-card-editor-buttons-item-text">Archive</span>
         </a>
@@ -82,7 +82,8 @@
     methods: {
       ...mapActions([
         'hideQuickCardEditor',
-        'saveQuickCardEditor'
+        'saveQuickCardEditor',
+        'archiveCard'
       ]),
       calPos () {
         if (!this.editorShown) return {};
@@ -104,6 +105,13 @@
           belongs: this.editorParams.belongs,
           id: this.editorParams.id,
           title: this.$refs.title.value
+        });
+        this.hideQuickCardEditor({});
+      },
+      archive () {
+        this.archiveCard({
+          belongs: this.editorParams.belongs,
+          id: this.editorParams.id
         });
         this.hideQuickCardEditor({});
       }

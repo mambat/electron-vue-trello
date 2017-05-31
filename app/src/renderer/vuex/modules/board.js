@@ -43,6 +43,10 @@ const mutations = {
     state.editorShown = true;
     let list = state.lists[state.lists.findIndex((n) => n.id === params.belongs)].cards;
     list[list.findIndex((m) => m.id === params.id)].title = params.title;
+  },
+  [types.ARCHIVE_CARD_OVER] (state, params) {
+    let list = state.lists[state.lists.findIndex((n) => n.id === params.belongs)].cards;
+    list.splice(list.findIndex((m) => m.id === params.id), 1);
   }
 };
 
