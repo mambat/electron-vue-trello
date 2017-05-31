@@ -17,7 +17,9 @@
         </div>
       </div>
       <div class="list-cards u-fancy-scrollbar u-clearfix">
-        <card v-for="card in list.cards" :card="card" @syncListNameFrame="syncListNameFrame"></card>
+        <draggable v-model="cardList" :options="{ghostClass: 'ghost', group:'card'}">
+          <card v-for="card in cardList" :card="card" @syncListNameFrame="syncListNameFrame"></card>
+        </draggable>
         <div v-show="isAddingCard" class="card-composer">
           <div class="list-card">
             <div class="list-card-details u-clearfix">
@@ -39,10 +41,28 @@
       </div>
       <a v-show="!isAddingCard" class="open-card-composer" @click="openAddCardBox">Add a card…</a>
     </div>
+    <div class="placeholder"></div>
   </div>
 </template>
-<style>
-
+<style scoped>
+  .list-wrapper{
+    position: relative;
+  }
+  .placeholder {
+    display: none;
+  }
+  .ghost .list{
+    opacity: 0!important;
+  }
+  .ghost .placeholder{
+    position: absolute;
+    top:0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, .3);
+    display: inline-block!important;
+  }
 </style>
 <script>
   import Card from '../../components/Boards/Card.vue';
@@ -64,6 +84,14 @@
       },
       isAddingCard () {
         return this.target.adding === this.list.id && !!this.cardAdd;
+      },
+      cardList: {
+        get () {
+          return this.list.cards;
+        },
+        set (value) {
+          this.$store.commit('SORT_CARD_LIST_OVER_CARD', {list: this.list, cards: value});
+        }
       }
     },
     methods: {

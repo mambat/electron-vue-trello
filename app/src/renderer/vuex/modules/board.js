@@ -18,6 +18,20 @@ const mutations = {
     let card = {belongs: params.belongs, id: mockGenerateId(), title: params.title};
     state.lists[state.lists.findIndex((n) => n.id === params.belongs)].cards.push(card);
   },
+  [types.ADD_CARD_TO_LIST_OVER] (state, params) {
+    let card = {belongs: params.belongs, id: mockGenerateId(), title: params.title};
+    state.lists[state.lists.findIndex((n) => n.id === params.belongs)].cards.push(card);
+  },
+  [types.SORT_CARD_LIST_OVER] (state, params) {
+    state.lists = params;
+  },
+  [types.SORT_CARD_LIST_OVER_CARD] (state, params) {
+    state.lists.forEach(function (list) {
+      if (list.id === params.list.id) {
+        list.cards = params.cards;
+      }
+    });
+  },
   [types.HIDE_EDITOR_OVER] (state) {
     state.editorShown = false;
   },
@@ -29,6 +43,10 @@ const mutations = {
     state.editorShown = true;
     let list = state.lists[state.lists.findIndex((n) => n.id === params.belongs)].cards;
     list[list.findIndex((m) => m.id === params.id)].title = params.title;
+  },
+  [types.ARCHIVE_CARD_OVER] (state, params) {
+    let list = state.lists[state.lists.findIndex((n) => n.id === params.belongs)].cards;
+    list.splice(list.findIndex((m) => m.id === params.id), 1);
   }
 };
 
