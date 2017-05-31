@@ -75,3 +75,7 @@ export function updateTeam (team) {
 export function deleteTeam (id) {
   console.log('deleteTeam: ' + id);
 }
+
+export function createBoard (board) {
+  console.log('createBoard: ' + board);
+}

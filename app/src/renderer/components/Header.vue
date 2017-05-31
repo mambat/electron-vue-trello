@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <a class="header-logo js-home-via-logo" href="/">
+    <a class="header-logo" :class="{'is-throbbing': isThrobbing}" href="/">
       <span class="header-logo-loading"></span>
       <span class="header-logo-default"></span>
     </a>
@@ -9,7 +9,12 @@
 
 <script>
   export default {
-    name: 'header-comp'
+    name: 'header-comp',
+    computed: {
+      isThrobbing: function () {
+        return this.$store.state.global.isLoading;
+      }
+    }
   };
 </script>
 

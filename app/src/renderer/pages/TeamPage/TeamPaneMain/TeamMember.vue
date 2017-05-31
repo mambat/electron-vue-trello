@@ -4,7 +4,7 @@
 
 <script>
   export default {
-    name: 'team-main-member'
+    name: 'team-member'
   };
 </script>
 

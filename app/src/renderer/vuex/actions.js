@@ -13,6 +13,10 @@ export const showPopOverDeleteTeam = ({commit}, pos) => {
   commit(types.SHOW_POP_OVER_DELETE_TEAM, pos);
 };
 
+export const showPopOverCreateBoard = ({commit}, data) => {
+  commit(types.SHOW_POP_OVER_CREATE_BOARD, data);
+};
+
 export const createTeam = ({commit}, team) => {
   try {
     team.id = data.newTeamId();
@@ -55,6 +59,11 @@ export const deleteTeam = ({commit}, id) => {
   data.deleteTeam(id);
   commit(types.DELETE_TEAM_SUCCESS, id);
   this.hidePopOver({commit});
+};
+
+export const createBoard = ({commit}, board) => {
+  data.createBoard(board);
+  commit(types.CREATE_BOARD_SUCCESS, board);
 };
 
 export const saveListName = ({commit}, params) => {
