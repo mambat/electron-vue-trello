@@ -9,7 +9,8 @@
         </div>
         <div class="board-canvas">
           <div id="board" class="u-fancy-scrollbar">
-            <draggable v-model="lists" class="draggable-lists">
+            <draggable v-model="lists" class="draggable-lists"
+                       :options="{handle:'.list-header', ghostClass: 'ghost'}">
               <list v-for="list in lists" :list="list" :target="target" :cardAdd="cardAdd" :listNameEditing="listNameEditing" @syncTarget="syncTarget" @syncListNameFrame="syncListNameFrame" @syncAddCardBox="syncAddCardBox"></list>
             </draggable>
               <div class="list-wrapper mod-add" :class="{'is-idle': !listAdd}">
@@ -31,7 +32,7 @@
 <script>
   import List from '../components/Boards/List.vue';
   import bodyClassMixin from '../mixins/body-class-mixin';
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapActions } from 'vuex';
 
   export default {
     name: 'board-page',
@@ -45,14 +46,27 @@
       bodyClass: 'body-board-view'
     }),
     computed: {
-      ...mapGetters([
-        'lists'
-      ])
+      lists: {
+        get () {
+          return this.$store.state.board.lists;
+        },
+        set (value) {
+          this.$store.commit('SORT_CARD_LIST_OVER', value);
+        }
+      }
     },
     methods: {
       ...mapActions([
         'addListToBoard'
       ]),
+      move (evt) {
+        evt.clone.style.color = 'red';
+        evt.from.style.color = 'blue';
+        evt.item.style.color = 'white';
+        console.log(evt.clone);
+        console.log(evt.from);
+        console.log(evt.item);
+      },
       packup () {
         if (event.target.id === 'board') {
           this.syncListNameFrame(false);

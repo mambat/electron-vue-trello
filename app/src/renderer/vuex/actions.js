@@ -69,6 +69,14 @@ export const addCardToList = ({commit}, params) => {
   commit(types.ADD_CARD_TO_LIST_OVER, params);
 };
 
+export const sortCardList = ({commit}, params) => {
+  commit(types.SORT_CARD_LIST_OVER, params);
+};
+
+export const sortCardFromCardList = ({commit}, params) => {
+  commit(types.SORT_CARD_LIST_OVER_CARD, params);
+};
+
 export const showQuickCardEditor = ({commit}, params) => {
   commit(types.SHOW_EDITOR_OVER, params);
 };
