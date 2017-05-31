@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="list-cards u-fancy-scrollbar u-clearfix">
-        <draggable v-model="cardList" :options="{ghostClass: 'ghost', group:'card'}">
+        <draggable class="card-drag-box" v-model="cardList" :options="{ghostClass: 'ghost', group:'card'}">
           <card v-for="card in cardList" :card="card" @syncListNameFrame="syncListNameFrame"></card>
         </draggable>
         <div v-show="isAddingCard" class="card-composer">
@@ -45,6 +45,7 @@
   </div>
 </template>
 <style scoped>
+  .card-drag-box{min-height: 10px}
   .list-wrapper{
     position: relative;
   }
