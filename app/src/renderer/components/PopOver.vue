@@ -9,6 +9,7 @@
     <create-board v-if="isCreateBoard && popoverShown"
                   :team-id="popoverParams.teamId" :team-name="popoverParams.teamName">
     </create-board>
+    <rename-board v-if="isRenameBoard && popoverShown" :name="popoverParams.boardName" @close="close"></rename-board>
   </div>
 </template>
 
@@ -18,13 +19,15 @@
   import CreateTeam from './PopOver/CreateTeam';
   import DeleteTeam from './PopOver/DeleteTeam';
   import CreateBoard from './PopOver/CreateBoard';
+  import RenameBoard from './PopOver/RenameBoard';
 
   export default {
     name: 'popover',
     components: {
       CreateTeam,
       DeleteTeam,
-      CreateBoard
+      CreateBoard,
+      RenameBoard
     },
     data: function () {
       return {
@@ -48,6 +51,9 @@
       },
       isCreateBoard: function () {
         return this.popoverContent === vals.POP_OVER_CREATE_BOARD;
+      },
+      isRenameBoard: function () {
+        return this.popoverContent === vals.POP_OVER_RENAME_BOARD;
       }
     },
     watch: {
@@ -60,6 +66,9 @@
           this.contentHeight = 162;
         } else if (newValue === vals.POP_OVER_CREATE_BOARD) {
           this.headerTitle = '创建看板';
+          this.contentHeight = 249;
+        } else if (newValue === vals.POP_OVER_RENAME_BOARD) {
+          this.headerTitle = '重命名看板';
           this.contentHeight = 249;
         }
       }
