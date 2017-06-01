@@ -3,7 +3,7 @@
     <div class="board-wrapper" @click="packup">
       <div class="board-main-content">
         <div class="board-header u-clearfix">
-          <a class="board-header-btn board-header-btn-name" @click="openRenameBoardBox" ref="boardName">
+          <a class="board-header-btn board-header-btn-name" @click="openRenameBoardPopover" ref="boardName">
             <span class="board-header-btn-text" dir="auto">{{board.name}}</span>
           </a>
         </div>
@@ -100,7 +100,7 @@
       syncAddCardBox (bol) {
         this.cardAdd = bol;
       },
-      openRenameBoardBox () {
+      openRenameBoardPopover () {
         let rect = this.$refs.boardName.getBoundingClientRect();
         this.showPopOverRenameBoard({
           pos: {

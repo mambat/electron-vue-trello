@@ -10,6 +10,7 @@
                   :team-id="popoverParams.teamId" :team-name="popoverParams.teamName">
     </create-board>
     <rename-board v-if="isRenameBoard && popoverShown" :name="popoverParams.boardName" @close="close"></rename-board>
+    <list-actions v-if="isListActions && popoverShown" :id="popoverParams.id" @close="close"></list-actions>
   </div>
 </template>
 
@@ -20,6 +21,7 @@
   import DeleteTeam from './PopOver/DeleteTeam';
   import CreateBoard from './PopOver/CreateBoard';
   import RenameBoard from './PopOver/RenameBoard';
+  import ListActions from './PopOver/ListActions';
 
   export default {
     name: 'popover',
@@ -27,7 +29,8 @@
       CreateTeam,
       DeleteTeam,
       CreateBoard,
-      RenameBoard
+      RenameBoard,
+      ListActions
     },
     data: function () {
       return {
@@ -54,6 +57,9 @@
       },
       isRenameBoard: function () {
         return this.popoverContent === vals.POP_OVER_RENAME_BOARD;
+      },
+      isListActions: function () {
+        return this.popoverContent === vals.POP_OVER_LIST_ACTIONS;
       }
     },
     watch: {
@@ -69,6 +75,9 @@
           this.contentHeight = 249;
         } else if (newValue === vals.POP_OVER_RENAME_BOARD) {
           this.headerTitle = '重命名看板';
+          this.contentHeight = 249;
+        } else if (newValue === vals.POP_OVER_LIST_ACTIONS) {
+          this.headerTitle = '列表操作';
           this.contentHeight = 249;
         }
       }
