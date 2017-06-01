@@ -37,6 +37,18 @@ const mutations = {
     state.pos = Object.assign({}, data.pos);
     state.params = Object.assign({}, data.params);
     state.content = vals.POP_OVER_CREATE_BOARD;
+  },
+  [types.SHOW_POP_OVER_RENAME_BOARD] (state, data) {
+    state.shown = true;
+    state.pos = Object.assign({}, data.pos);
+    state.params = Object.assign({}, data.params);
+    state.content = vals.POP_OVER_RENAME_BOARD;
+  },
+  [types.SHOW_POP_OVER_LIST_ACTIONS] (state, data) {
+    state.shown = true;
+    state.pos = Object.assign({}, data.pos);
+    state.params = Object.assign({}, data.params);
+    state.content = vals.POP_OVER_LIST_ACTIONS;
   }
 };
 

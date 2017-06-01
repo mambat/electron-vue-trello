@@ -106,3 +106,19 @@ export const saveQuickCardEditor = ({commit}, params) => {
 export const archiveCard = ({commit}, params) => {
   commit(types.ARCHIVE_CARD_OVER, params);
 };
+
+export const showPopOverRenameBoard = ({commit}, params) => {
+  commit(types.SHOW_POP_OVER_RENAME_BOARD, params);
+};
+
+export const renameBoard = ({commit}, params) => {
+  commit(types.RENAME_BOARD_OVER, params);
+};
+
+export const showPopOverListActions = ({commit}, params) => {
+  commit(types.SHOW_POP_OVER_LIST_ACTIONS, params);
+};
+
+export const archiveList = ({commit}, params) => {
+  commit(types.ARCHIVE_LIST_OVER, params);
+};

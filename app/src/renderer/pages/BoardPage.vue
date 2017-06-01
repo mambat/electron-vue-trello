@@ -3,8 +3,8 @@
     <div class="board-wrapper" @click="packup">
       <div class="board-main-content">
         <div class="board-header u-clearfix">
-          <a class="board-header-btn board-header-btn-name" href="#">
-            <span class="board-header-btn-text" dir="auto">Welcome Board</span>
+          <a class="board-header-btn board-header-btn-name" @click="openRenameBoardPopover" ref="boardName">
+            <span class="board-header-btn-text" dir="auto">{{board.name}}</span>
           </a>
         </div>
         <div class="board-canvas">
@@ -32,7 +32,7 @@
 <script>
   import List from '../components/Boards/List.vue';
   import bodyClassMixin from '../mixins/body-class-mixin';
-  import { mapActions } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
 
   export default {
     name: 'board-page',
@@ -46,9 +46,12 @@
       bodyClass: 'body-board-view'
     }),
     computed: {
+      ...mapGetters([
+        'board'
+      ]),
       lists: {
         get () {
-          return this.$store.state.board.lists;
+          return this.$store.state.board.data.lists;
         },
         set (value) {
           this.$store.commit('SORT_CARD_LIST_OVER', value);
@@ -57,7 +60,8 @@
     },
     methods: {
       ...mapActions([
-        'addListToBoard'
+        'addListToBoard',
+        'showPopOverRenameBoard'
       ]),
       move (evt) {
         evt.clone.style.color = 'red';
@@ -95,6 +99,18 @@
       },
       syncAddCardBox (bol) {
         this.cardAdd = bol;
+      },
+      openRenameBoardPopover () {
+        let rect = this.$refs.boardName.getBoundingClientRect();
+        this.showPopOverRenameBoard({
+          pos: {
+            left: rect.left,
+            top: rect.top
+          },
+          params: {
+            boardName: this.board.name
+          }
+        });
       },
       isEmpty (str) {
         return typeof str === 'undefined' || str === null || str.trim() === '';

@@ -7,11 +7,11 @@
         <textarea class="list-header-name mod-list-name" :class="{'is-editing': isEditingListName}" spellcheck="false" dir="auto" maxlength="512"
                   style="overflow: hidden; word-wrap: break-word; height: 24px;" ref="listNameFrame">{{list.name}}</textarea>
         <p class="list-header-num-cards hide">{{list.cards.length}} cards</p>
-        <div class="list-header-extras">
+        <div class="list-header-extras" ref="extras">
                   <span class="list-header-extras-subscribe hide">
                     <span class="icon-sm icon-subscribe"></span>
                   </span>
-          <a class="list-header-extras-menu dark-hover" href="#">
+          <a class="list-header-extras-menu dark-hover" @click="openListActionsPopover">
             <span class="icon-sm icon-overflow-menu-horizontal"></span>
           </a>
         </div>
@@ -98,7 +98,8 @@
     methods: {
       ...mapActions([
         'saveListName',
-        'addCardToList'
+        'addCardToList',
+        'showPopOverListActions'
       ]),
       openAddCardBox () {
         this.cleanAddCardBox();
@@ -128,6 +129,18 @@
       },
       cleanAddCardBox () {
         this.newCardContent = '';
+      },
+      openListActionsPopover () {
+        let rect = this.$refs.extras.getBoundingClientRect();
+        this.showPopOverListActions({
+          pos: {
+            left: rect.left,
+            top: rect.bottom
+          },
+          params: {
+            id: this.list.id
+          }
+        });
       },
       isEmpty (str) {
         return typeof str === 'undefined' || str === null || str.trim() === '';
