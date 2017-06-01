@@ -2,7 +2,6 @@ import * as types from '../mutation-types';
 
 const state = {
   data: {id: 'p000_000', name: 'Welcome Board', lists: [{id: '1', name: 'Stuff to try (this is a list)', cards: [{belongs: '1', id: '11', title: 'Cards do many cool things. Click on this card to open it and learn more...'}, {belongs: '1', id: '12', title: 'Add members to a board (via the sidebar) to collaborate, share and discuss.'}]}, {id: '2', name: 'Tried it (another list)', cards: []}]},
-  // lists: [{id: '1', name: 'Stuff to try (this is a list)', cards: [{belongs: '1', id: '11', title: 'Cards do many cool things. Click on this card to open it and learn more...'}, {belongs: '1', id: '12', title: 'Add members to a board (via the sidebar) to collaborate, share and discuss.'}]}, {id: '2', name: 'Tried it (another list)', cards: []}],
   editorShown: false,
   editor: {}
 };
@@ -27,7 +26,7 @@ const mutations = {
     state.data.lists = params;
   },
   [types.SORT_CARD_LIST_OVER_CARD] (state, params) {
-    state.data.lists.forEach(function (list) {
+    state.data.lists.forEach((list) => {
       if (list.id === params.list.id) {
         list.cards = params.cards;
       }
