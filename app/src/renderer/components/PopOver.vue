@@ -75,10 +75,10 @@
           this.contentHeight = 249;
         } else if (newValue === vals.POP_OVER_RENAME_BOARD) {
           this.headerTitle = '重命名看板';
-          this.contentHeight = 249;
+          this.contentHeight = 168;
         } else if (newValue === vals.POP_OVER_LIST_ACTIONS) {
           this.headerTitle = '列表操作';
-          this.contentHeight = 249;
+          this.contentHeight = 86;
         }
       }
     },
