@@ -28,7 +28,18 @@ const addTeam = function (team, success, failure) {
     });
 };
 
+const getTeam = function (id, success, failure) {
+  db.get(id)
+    .then(function (result) {
+      success && success(result);
+    })
+    .catch(function (err) {
+      failure && failure(err);
+    });
+};
+
 export default {
   retrieveAll,
-  addTeam
+  addTeam,
+  getTeam
 };

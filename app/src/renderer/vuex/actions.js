@@ -42,12 +42,11 @@ export const createTeam = ({commit}, team) => {
 };
 
 export const queryTeam = ({commit}, id) => {
-  try {
-    let team = data.queryTeam(id);
-    commit(types.QUERY_TEAM_SUCCESS, team);
-  } catch (err) {
+  teamDB.getTeam(id, function (result) {
+    commit(types.QUERY_TEAM_SUCCESS, result);
+  }, function (err) {
     commit(types.QUERY_TEAM_FAILURE, err.message);
-  }
+  });
 };
 
 export const updateTeam = ({commit}, team) => {

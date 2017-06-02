@@ -11,8 +11,8 @@ const state = {
 };
 
 const mutations = {
-  [types.QUERY_TEAM_SUCCESS] (state, team) {
-    state.currentTeam = Object.assign({}, team);
+  [types.QUERY_TEAM_SUCCESS] (state, result) {
+    state.currentTeam = Object.assign({}, result);
     state.queryErr = '';
   },
   [types.QUERY_TEAM_FAILURE] (state, err) {
