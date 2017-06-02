@@ -1,5 +1,6 @@
 import teamDB from '../database/team';
 import * as data from '../utils/data';
+import * as ids from '../utils/ids';
 import * as types from './mutation-types';
 
 export const initApp = ({commit}) => {
@@ -31,15 +32,13 @@ export const showPopOverCreateBoard = ({commit}, data) => {
 };
 
 export const createTeam = ({commit}, team) => {
-  try {
-    // team.id = data.newTeamId();
-    // data.saveTeam(team);
-    teamDB.addTeam(team);
+  team.id = ids.newTeamId();
+  teamDB.addTeam(team, function (result) {
     commit(types.CREATE_TEAM_SUCCESS, team);
     this.hidePopOver({commit});
-  } catch (err) {
+  }.bind(this), function (err) {
     commit(types.POP_OVER_SUBMIT_FAILURE, err.message);
-  }
+  });
 };
 
 export const queryTeam = ({commit}, id) => {

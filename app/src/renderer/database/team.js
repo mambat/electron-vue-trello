@@ -3,7 +3,6 @@
  */
 import path from 'path';
 import PouchDB from 'pouchdb';
-import * as ids from '../utils/ids';
 
 let userDataPath = require('electron').remote.getGlobal('sharedObject').userDataPath;
 let db = new PouchDB(path.join(userDataPath, '/team'));
@@ -19,7 +18,7 @@ const retrieveAll = function (success, failure) {
 };
 
 const addTeam = function (team, success, failure) {
-  team = Object.assign({}, team, {_id: ids.newTeamId()});
+  team = Object.assign({}, team, {_id: team.id});
   db.put(team)
     .then(function (result) {
       success && success(result);
