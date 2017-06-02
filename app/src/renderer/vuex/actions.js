@@ -1,6 +1,14 @@
-import * as database from '../database';
+import teamDB from '../database/team';
 import * as data from '../utils/data';
 import * as types from './mutation-types';
+
+export const initApp = ({commit}) => {
+  teamDB.retrieveAll(function (result) {
+    commit(types.INIT_APP, result);
+  }, function (err) {
+    alert('initialize app failed: ' + err.message);
+  });
+};
 
 export const hidePopOver = ({commit}) => {
   commit(types.HIDE_POP_OVER);
@@ -26,7 +34,7 @@ export const createTeam = ({commit}, team) => {
   try {
     // team.id = data.newTeamId();
     // data.saveTeam(team);
-    database.addTeam(team);
+    teamDB.addTeam(team);
     commit(types.CREATE_TEAM_SUCCESS, team);
     this.hidePopOver({commit});
   } catch (err) {

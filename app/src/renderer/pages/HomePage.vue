@@ -47,8 +47,12 @@
         'newTeam'
       ])
     },
+    created: function () {
+      this.initApp();
+    },
     methods: {
       ...mapActions([
+        'initApp',
         'showPopOverCreateTeam'
       ]),
       createTeam: function () {

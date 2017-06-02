@@ -12,7 +12,7 @@
     name: 'header-comp',
     computed: {
       isThrobbing: function () {
-        return this.$store.state.global.isLoading;
+        return this.$store.state.app.isLoading;
       }
     }
   };

@@ -1,5 +1,5 @@
-export const personalBoards = state => state.global.personalBoards;
-export const teamBoards = state => state.global.teamBoards;
+export const personalBoards = state => state.app.personalBoards;
+export const teamBoards = state => state.app.teamBoards;
 
 export const popoverShown = state => state.popover.shown;
 export const popoverPos = state => state.popover.pos;

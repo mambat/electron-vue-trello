@@ -1,16 +1,26 @@
 /**
  * Created by wanglei on 17/5/27.
  */
-import * as data from '../../utils/data';
+import * as ids from '../../utils/ids';
 import * as types from '../mutation-types';
 
 const state = {
   isLoading: false,
-  personalBoards: data.personalBoards,
-  teamBoards: data.teamBoards
+  personalBoards: [],
+  teamBoards: []
 };
 
 const mutations = {
+  [types.INIT_APP] (state, result) {
+    let rows = result.rows || [];
+    for (let i = 0; i < rows.length; i++) {
+      if (rows[i].id === ids.personalTeamId()) {
+        state.personalBoards.push(rows[i].doc.boards);
+        continue;
+      }
+      state.teamBoards.push(rows[i].doc);
+    }
+  },
   [types.SHOW_LOADING] (state) {
     state.isLoading = true;
   },
