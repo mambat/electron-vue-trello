@@ -18,7 +18,7 @@
     "pack:renderer": "cross-env NODE_ENV=production webpack -p --progress --colors --config webpack.renderer.config.js",
     "test": "npm run unit && npm run e2e",
     "unit": "karma start test/unit/karma.conf.js",
-    "postinstall": "npm run lint:fix && cd app && npm install"
+    "postinstall": "npm run lint:fix && cd app && npm install && electron-rebuild"
   },
   "author": "Greg Holguin <simulatedgreg@gmail.com>",
   "license": "MIT",

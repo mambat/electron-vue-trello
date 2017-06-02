@@ -1,5 +1,5 @@
 {
-  "name": "electron-vue-trello",
+  "name": "Trello",
   "version": "0.0.0",
   "description": "trello powered by electron",
   "main": "./dist/main.js",

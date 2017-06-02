@@ -3,7 +3,7 @@ const path = require('path');
 let config = {
   // Name of electron app
   // Will be used in production builds
-  name: 'electron-vue-trello',
+  name: 'Trello',
 
   // Use ESLint (extends `standard`)
   // Further changes can be made in `.eslintrc.js`

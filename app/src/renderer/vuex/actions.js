@@ -1,3 +1,4 @@
+import * as database from '../database';
 import * as data from '../utils/data';
 import * as types from './mutation-types';
 
@@ -23,8 +24,9 @@ export const showPopOverCreateBoard = ({commit}, data) => {
 
 export const createTeam = ({commit}, team) => {
   try {
-    team.id = data.newTeamId();
-    data.saveTeam(team);
+    // team.id = data.newTeamId();
+    // data.saveTeam(team);
+    database.addTeam(team);
     commit(types.CREATE_TEAM_SUCCESS, team);
     this.hidePopOver({commit});
   } catch (err) {

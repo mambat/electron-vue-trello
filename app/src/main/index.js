@@ -1,5 +1,9 @@
 import { app, BrowserWindow } from 'electron';
 
+global.sharedObject = {
+  userDataPath: app.getPath('userData')
+};
+
 let mainWindow;
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:${require('../../../config').port}`
