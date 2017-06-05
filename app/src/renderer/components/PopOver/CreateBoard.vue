@@ -17,7 +17,7 @@
       此看板将会被<strong>{{isPrivate ? '非公开' : '团队可见'}}</strong>.
     </p>
     <p class="error u-bottom u-clearfix" v-if="popoverErr">{{popoverErr}}</p>
-    <input class="primary wide" type="submit" value="创建" @click="doCreate">
+    <input class="primary wide" type="submit" value="创建" @click="doCreate" :disabled="submitDisabled">
   </div>
 </template>
 
@@ -54,6 +54,9 @@
       },
       isPrivate: function () {
         return !this.team;
+      },
+      submitDisabled: function () {
+        return !this.name;
       }
     },
     beforeDestroy: function () {

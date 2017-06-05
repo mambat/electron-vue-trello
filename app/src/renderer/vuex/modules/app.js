@@ -50,7 +50,7 @@ const mutations = {
     }
   },
   [types.CREATE_BOARD_SUCCESS] (state, board) {
-    if (!board.teamId) {
+    if (board.teamId === ids.personalTeamId()) {
       state.personalBoards.push({
         id: board.id,
         name: board.name
