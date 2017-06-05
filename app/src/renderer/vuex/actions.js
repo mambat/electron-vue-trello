@@ -1,6 +1,4 @@
 import teamDB from '../database/team';
-import * as data from '../utils/data';
-import * as ids from '../utils/ids';
 import * as types from './mutation-types';
 
 export const initApp = ({commit}) => {
@@ -32,8 +30,8 @@ export const showPopOverCreateBoard = ({commit}, data) => {
 };
 
 export const createTeam = ({commit}, team) => {
-  team.id = ids.newTeamId();
   teamDB.addTeam(team, function (result) {
+    team.id = result.id;
     commit(types.CREATE_TEAM_SUCCESS, team);
     this.hidePopOver({commit});
   }.bind(this), function (err) {
@@ -50,13 +48,12 @@ export const queryTeam = ({commit}, id) => {
 };
 
 export const updateTeam = ({commit}, team) => {
-  try {
-    data.updateTeam(team);
+  teamDB.updateTeam(team, function (result) {
     commit(types.UPDATE_TEAM_SUCCESS, team);
     this.clearUpdateTeamErr({commit});
-  } catch (err) {
+  }.bind(this), function (err) {
     commit(types.UPDATE_TEAM_FAILURE, err.message);
-  }
+  });
 };
 
 export const clearUpdateTeamErr = ({commit}) => {
@@ -64,19 +61,21 @@ export const clearUpdateTeamErr = ({commit}) => {
 };
 
 export const deleteTeam = ({commit}, id) => {
-  data.deleteTeam(id);
-  commit(types.DELETE_TEAM_SUCCESS, id);
-  this.hidePopOver({commit});
+  teamDB.deleteTeam(id, function (result) {
+    commit(types.DELETE_TEAM_SUCCESS, id);
+    this.hidePopOver({commit});
+  }.bind(this), function (err) {
+    alert('delete team failed: ' + JSON.stringify(err));
+  });
 };
 
 export const createBoard = ({commit}, board) => {
-  try {
-    data.createBoard(board);
+  teamDB.addBoard(board, function (result) {
     commit(types.CREATE_BOARD_SUCCESS, board);
     this.hidePopOver({commit});
-  } catch (err) {
+  }.bind(this), function (err) {
     commit(types.POP_OVER_SUBMIT_FAILURE, err.message);
-  }
+  });
 };
 
 export const saveListName = ({commit}, params) => {

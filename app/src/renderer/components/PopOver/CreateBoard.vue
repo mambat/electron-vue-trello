@@ -23,6 +23,7 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex';
+  import * as ids from '../../utils/ids';
 
   export default {
     name: 'create-board',
@@ -48,7 +49,7 @@
       teamSelect: function () {
         return {
           id: this.teamId,
-          name: !this.teamId ? '(无)' : this.teamName
+          name: this.teamId === ids.personalTeamId() ? '(无)' : this.teamName
         };
       },
       isPrivate: function () {

@@ -1,6 +1,6 @@
 <template>
   <li class="boards-page-board-section-list-item">
-    <router-link :to="'/board/' + item.id" class="board-tile" style="background-color: rgb(75, 191, 107);">
+    <router-link :to="'/board/' + item.id" class="board-tile" style="background-color: rgb(0, 121, 191);">
       <span class="board-tile-fade"></span>
       <span class="board-tile-details is-badged">
               <span :title="item.name" dir="auto" class="board-tile-details-name">{{item.name}}</span>

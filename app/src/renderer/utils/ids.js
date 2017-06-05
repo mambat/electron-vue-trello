@@ -8,3 +8,7 @@ export function newTeamId () {
 export function personalTeamId () {
   return 't_0';
 }
+
+export function newBoardId () {
+  return 'b_' + new Date().getTime();
+}

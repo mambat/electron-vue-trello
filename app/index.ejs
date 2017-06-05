@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>electron-vue-trello</title>
     <% if (htmlWebpackPlugin.options.appModules) { %>
-      <!-- Add `app/node_modules` to global paths so `require` works properly in development -->
-      <script>
-        require('module').globalPaths.push('<%= htmlWebpackPlugin.options.appModules.replace(/\\/g, '\\\\') %>')
-      </script>
+    <!-- Add `app/node_modules` to global paths so `require` works properly in development -->
+    <script>
+      require('module').globalPaths.push('<%= htmlWebpackPlugin.options.appModules.replace(/\\/g, '\\\\') %>');
+    </script>
     <% } %>
-  </head>
-  <body>
-    <div id="app"></div>
-    <!-- webpack builds are automatically injected -->
-  </body>
+</head>
+<body>
+<div id="app"></div>
+<!-- webpack builds are automatically injected -->
+</body>
 </html>

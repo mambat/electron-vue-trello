@@ -2,6 +2,7 @@
   <div>
     <board-section section-name="个人看板"
                    :personal="true"
+                   :team-id="personalTeamId"
                    :boards="personalBoards">
     </board-section>
 
@@ -28,13 +29,15 @@
   import { mapActions, mapGetters } from 'vuex';
   import BoardSection from './HomePage/BoardSection';
   import bodyClassMixin from '../mixins/body-class-mixin';
+  import * as ids from '../utils/ids';
 
   export default {
     name: 'home-page',
     mixins: [bodyClassMixin],
     data: function () {
       return {
-        bodyClass: 'body-tabbed-page'
+        bodyClass: 'body-tabbed-page',
+        personalTeamId: ids.personalTeamId()
       };
     },
     components: {

@@ -12,10 +12,11 @@ const state = {
 
 const mutations = {
   [types.INIT_APP] (state, result) {
+    state.teamBoards = [];
     let rows = result.rows || [];
     for (let i = 0; i < rows.length; i++) {
       if (rows[i].id === ids.personalTeamId()) {
-        state.personalBoards.push(rows[i].doc.boards);
+        state.personalBoards = rows[i].doc.boards || [];
         continue;
       }
       state.teamBoards.push(rows[i].doc);
@@ -39,6 +40,15 @@ const mutations = {
       }
     }
   },
+  [types.UPDATE_TEAM_SUCCESS] (state, team) {
+    for (let i = 0; i < state.teamBoards.length; i++) {
+      let item = state.teamBoards[i];
+      if (team.id === item.id) {
+        let assign = Object.assign({}, item, team);
+        state.teamBoards.splice(i, 1, assign);
+      }
+    }
+  },
   [types.CREATE_BOARD_SUCCESS] (state, board) {
     if (!board.teamId) {
       state.personalBoards.push({
@@ -48,14 +58,15 @@ const mutations = {
       return;
     }
     for (let i = 0; i < state.teamBoards.length; i++) {
-      let team = state.teamBoards[i];
-      if (team.id === board.teamId) {
-        let boards = team.boards || [];
-        boards.push({
+      if (state.teamBoards[i].id === board.teamId) {
+        if (!state.teamBoards[i].boards) {
+          let assign = Object.assign({}, state.teamBoards[i], {boards: []});
+          state.teamBoards.splice(i, 1, assign);
+        }
+        state.teamBoards[i].boards.push({
           id: board.id,
           name: board.name
         });
-        team.boards = boards;
         break;
       }
     }
