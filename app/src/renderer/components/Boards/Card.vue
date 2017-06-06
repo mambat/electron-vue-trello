@@ -13,12 +13,12 @@
           {{card.title}}
         </a>
         <!--<div class="badges">-->
-          <!--<span>-->
-            <!--<div class="badge is-icon-only" title="This card has a description.">-->
-              <!--<span class="badge-icon icon-sm icon-description"></span>-->
-            <!--</div>-->
-          <!--</span>-->
-          <!--<span><span></span></span>-->
+        <!--<span>-->
+        <!--<div class="badge is-icon-only" title="This card has a description.">-->
+        <!--<span class="badge-icon icon-sm icon-description"></span>-->
+        <!--</div>-->
+        <!--</span>-->
+        <!--<span><span></span></span>-->
         <!--</div>-->
         <!--<div class="list-card-members"></div>-->
       </div>
@@ -59,6 +59,14 @@
       active: false
     }),
     props: {
+      boardId: {
+        type: String,
+        required: true
+      },
+      listId: {
+        type: String,
+        required: true
+      },
       card: Object
     },
     methods: {
@@ -76,7 +84,8 @@
         let rect = this.$refs.card.getBoundingClientRect();
         this.$emit('syncListNameFrame', false);
         this.showQuickCardEditor({
-          belongs: card.belongs,
+          boardId: this.boardId,
+          belongs: this.listId,
           id: card.id,
           title: card.title,
           left: rect.left,

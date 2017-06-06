@@ -90,9 +90,74 @@ const addCard = function (params, success, failure) {
     });
 };
 
+const editCard = function (params, success, failure) {
+  db.get(params.boardId)
+    .then(function (doc) {
+      for (let i = 0; i < doc.lists.length; i++) {
+        if (doc.lists[i].id === params.belongs) {
+          for (let j = 0; j < doc.lists[i].cards.length; j++) {
+            if (doc.lists[i].cards[j].id === params.id) {
+              doc.lists[i].cards[j].title = params.title;
+              return db.put(Object.assign({}, doc));
+            }
+          }
+        }
+      }
+    })
+    .then(function (result) {
+      success && success(result);
+    })
+    .catch(function (err) {
+      failure && failure(err);
+    });
+};
+
+const archiveList = function (params, success, failure) {
+  db.get(params.boardId)
+    .then(function (doc) {
+      for (let i = 0; i < doc.lists.length; i++) {
+        if (doc.lists[i].id === params.id) {
+          doc.lists.splice(i, 1);
+          return db.put(Object.assign({}, doc));
+        }
+      }
+    })
+    .then(function (result) {
+      success && success(result);
+    })
+    .catch(function (err) {
+      failure && failure(err);
+    });
+};
+
+const archiveCard = function (params, success, failure) {
+  db.get(params.boardId)
+    .then(function (doc) {
+      for (let i = 0; i < doc.lists.length; i++) {
+        if (doc.lists[i].id === params.belongs) {
+          for (let j = 0; j < doc.lists[i].cards.length; j++) {
+            if (doc.lists[i].cards[j].id === params.id) {
+              doc.lists[i].cards.splice(j, 1);
+              return db.put(Object.assign({}, doc));
+            }
+          }
+        }
+      }
+    })
+    .then(function (result) {
+      success && success(result);
+    })
+    .catch(function (err) {
+      failure && failure(err);
+    });
+};
+
 export default {
   retrieveBoard,
   addList,
   renameListName,
-  addCard
+  addCard,
+  editCard,
+  archiveList,
+  archiveCard
 };

@@ -16,7 +16,12 @@
         :name="popoverParams.boardName"
         @close="close">
     </rename-board>
-    <list-actions v-if="isListActions && popoverShown" :id="popoverParams.id" @close="close"></list-actions>
+    <list-actions
+        v-if="isListActions && popoverShown"
+        :id="popoverParams.id"
+        :board-id="popoverParams.boardId"
+        @close="close">
+    </list-actions>
   </div>
 </template>
 

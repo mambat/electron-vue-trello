@@ -129,11 +129,19 @@ export const hideQuickCardEditor = ({commit}) => {
 };
 
 export const saveQuickCardEditor = ({commit}, params) => {
-  commit(types.SAVE_EDITOR_OVER, params);
+  boardDB.editCard(params, function (result) {
+    commit(types.SAVE_EDITOR_OVER, params);
+  }, function (err) {
+    alert('edit card failed: ' + JSON.stringify(err));
+  });
 };
 
 export const archiveCard = ({commit}, params) => {
-  commit(types.ARCHIVE_CARD_OVER, params);
+  boardDB.archiveCard(params, function (result) {
+    commit(types.ARCHIVE_CARD_OVER, params);
+  }, function (err) {
+    alert('archive card failed: ' + JSON.stringify(err));
+  });
 };
 
 export const showPopOverRenameBoard = ({commit}, params) => {
@@ -153,5 +161,9 @@ export const showPopOverListActions = ({commit}, params) => {
 };
 
 export const archiveList = ({commit}, params) => {
-  commit(types.ARCHIVE_LIST_OVER, params);
+  boardDB.archiveList(params, function (result) {
+    commit(types.ARCHIVE_LIST_OVER, params);
+  }, function (err) {
+    alert('archive list failed: ' + JSON.stringify(err));
+  });
 };

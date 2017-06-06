@@ -32,12 +32,17 @@
       ]),
       archive () {
         this.archiveList({
+          boardId: this.boardId,
           id: this.id
         });
         this.$emit('close');
       }
     },
     props: {
+      boardId: {
+        type: String,
+        required: true
+      },
       id: String
     }
   };

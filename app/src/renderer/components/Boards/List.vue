@@ -19,7 +19,7 @@
       </div>
       <div class="list-cards u-fancy-scrollbar u-clearfix">
         <draggable class="card-drag-box" v-model="cardList" :options="{ghostClass: 'ghost', group:'card'}">
-          <card v-for="card in cardList" :card="card" @syncListNameFrame="syncListNameFrame"></card>
+          <card v-for="card in cardList" :card="card" :board-id="boardId" :list-id="list.id" @syncListNameFrame="syncListNameFrame"></card>
         </draggable>
         <div v-show="isAddingCard" class="card-composer">
           <div class="list-card">
@@ -151,6 +151,7 @@
             top: rect.bottom
           },
           params: {
+            boardId: this.boardId,
             id: this.list.id
           }
         });

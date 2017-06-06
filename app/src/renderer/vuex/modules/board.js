@@ -44,7 +44,7 @@ const mutations = {
     state.editor = params;
   },
   [types.SAVE_EDITOR_OVER] (state, params) {
-    state.editorShown = true;
+    state.editorShown = false;
     let list = state.data.lists[state.data.lists.findIndex((n) => n.id === params.belongs)].cards;
     list[list.findIndex((m) => m.id === params.id)].title = params.title;
   },

@@ -102,6 +102,7 @@
       },
       save () {
         this.saveQuickCardEditor({
+          boardId: this.editorParams.boardId,
           belongs: this.editorParams.belongs,
           id: this.editorParams.id,
           title: this.$refs.title.value
@@ -110,6 +111,7 @@
       },
       archive () {
         this.archiveCard({
+          boardId: this.editorParams.boardId,
           belongs: this.editorParams.belongs,
           id: this.editorParams.id
         });
