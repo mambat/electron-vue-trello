@@ -1,11 +1,12 @@
 <template>
   <div class="list-wrapper">
     <div class="list">
-      <div class="list-header u-clearfix is-menu-shown" @click="editListName">
-        <div class="list-header-target" :class="{'is-hidden': isEditingListName}"></div>
+      <div class="list-header u-clearfix is-menu-shown">
+        <div class="list-header-target" :class="{'is-hidden': isEditingListName}" @click="editListName"></div>
         <h2 class="list-header-name-assist" dir="auto">{{list.name}}</h2>
         <textarea class="list-header-name mod-list-name" :class="{'is-editing': isEditingListName}" spellcheck="false" dir="auto" maxlength="512"
-                  style="overflow: hidden; word-wrap: break-word; height: 24px;" ref="listNameFrame">{{list.name}}</textarea>
+                  style="overflow: hidden; word-wrap: break-word; height: 24px;" ref="listNameFrame"
+                  @blur="syncListNameFrame(false)">{{list.name}}</textarea>
         <p class="list-header-num-cards hide">{{list.cards ? list.cards.length : 0}} cards</p>
         <div class="list-header-extras" ref="extras">
                   <span class="list-header-extras-subscribe hide">
@@ -165,6 +166,7 @@
           dom.focus();
           dom.select();
         } else {
+          if (this.list.name === dom.value) return;
           this.renameListName({
             boardId: this.boardId,
             id: this.list.id,

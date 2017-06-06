@@ -88,6 +88,7 @@ export const queryBoard = ({commit}, params) => {
 };
 
 export const renameListName = ({commit}, params) => {
+  console.log(JSON.stringify(params));
   boardDB.renameListName(params, function (result) {
     commit(types.SAVE_LIST_NAME_OVER, params);
   }, function (err) {
