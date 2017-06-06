@@ -52,7 +52,8 @@
         listContent: '',
         listNameEditing: false,
         cardAdd: false,
-        bodyClass: 'body-board-view'
+        bodyClass: 'body-board-view',
+        teamId: this.$route.params.team
       };
     },
     created: function () {
@@ -125,6 +126,8 @@
             top: rect.top
           },
           params: {
+            teamId: this.teamId,
+            boardId: this.board.id,
             boardName: this.board.name
           }
         });

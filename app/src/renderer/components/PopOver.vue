@@ -9,7 +9,13 @@
     <create-board v-if="isCreateBoard && popoverShown"
                   :team-id="popoverParams.teamId" :team-name="popoverParams.teamName">
     </create-board>
-    <rename-board v-if="isRenameBoard && popoverShown" :name="popoverParams.boardName" @close="close"></rename-board>
+    <rename-board
+        v-if="isRenameBoard && popoverShown"
+        :team-id="popoverParams.teamId"
+        :id="popoverParams.boardId"
+        :name="popoverParams.boardName"
+        @close="close">
+    </rename-board>
     <list-actions v-if="isListActions && popoverShown" :id="popoverParams.id" @close="close"></list-actions>
   </div>
 </template>

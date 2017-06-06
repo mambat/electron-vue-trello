@@ -8,7 +8,7 @@ let userDataPath = require('electron').remote.getGlobal('sharedObject').userData
 let db = new PouchDB(path.join(userDataPath, '/board'));
 
 const initBoard = function (params, success, failure) {
-  db.put(Object.assign({_id: params.id}, params))
+  db.put({_id: params.id, id: params.id})
     .then(function (result) {
       success && success(params);
     })

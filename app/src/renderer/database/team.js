@@ -100,7 +100,26 @@ const addBoard = function (board, success, failure) {
       success && success(result);
     })
     .catch(function (err) {
-      alert(JSON.stringify(err));
+      failure && failure(err);
+    });
+};
+
+const renameBoard = function (params, success, failure) {
+  db.get(params.teamId)
+    .then(function (doc) {
+      let boards = doc.boards;
+      for (let i = 0; i < boards.length; i++) {
+        let board = boards[i];
+        if (board.id !== params.id) continue;
+        let assign = Object.assign({}, board, {name: params.name});
+        boards[i] = assign;
+        return db.put(Object.assign({}, doc, {boards: boards}));
+      }
+    })
+    .then(function (result) {
+      success && success(result);
+    })
+    .catch(function (err) {
       failure && failure(err);
     });
 };
@@ -111,5 +130,6 @@ export default {
   getTeam,
   updateTeam,
   deleteTeam,
-  addBoard
+  addBoard,
+  renameBoard
 };

@@ -1,6 +1,6 @@
 <template>
   <li class="boards-page-board-section-list-item">
-    <router-link :to="'/board/' + item.id + '/' + item.name" class="board-tile" style="background-color: rgb(0, 121, 191);">
+    <router-link :to="link" class="board-tile" style="background-color: rgb(0, 121, 191);">
       <span class="board-tile-fade"></span>
       <span class="board-tile-details is-badged">
               <span :title="item.name" dir="auto" class="board-tile-details-name">{{item.name}}</span>
@@ -20,9 +20,18 @@
   export default {
     name: 'board-item',
     props: {
+      teamId: {
+        type: String,
+        required: true
+      },
       item: {
         type: Object,
         required: true
+      }
+    },
+    computed: {
+      link: function () {
+        return '/board/' + this.teamId + '/' + this.item.id + '/' + this.item.name;
       }
     }
   };

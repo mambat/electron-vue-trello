@@ -81,7 +81,7 @@ export const createBoard = ({commit}, board) => {
 
 export const queryBoard = ({commit}, params) => {
   boardDB.retrieveBoard(params, function (result) {
-    commit(types.QUERY_BOARD_SUCCESS, result);
+    commit(types.QUERY_BOARD_SUCCESS, Object.assign({}, result, {name: params.name}));
   }, function (err) {
     alert('load board failed: ' + JSON.stringify(err));
   });
@@ -128,7 +128,11 @@ export const showPopOverRenameBoard = ({commit}, params) => {
 };
 
 export const renameBoard = ({commit}, params) => {
-  commit(types.RENAME_BOARD_OVER, params);
+  teamDB.renameBoard(params, function (result) {
+    commit(types.RENAME_BOARD_OVER, params);
+  }, function (err) {
+    alert('rename board failed: ' + JSON.stringify(err));
+  });
 };
 
 export const showPopOverListActions = ({commit}, params) => {

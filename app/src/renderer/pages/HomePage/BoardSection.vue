@@ -21,7 +21,7 @@
       </div>
     </div>
     <ul class="boards-page-board-section-list">
-      <board-item v-for="item in boards" :key="item.id" :item="item"></board-item>
+      <board-item v-for="item in boards" :key="item.id" :item="item" :team-id="teamId"></board-item>
       <board-add-item :team-id="teamId" :team-name="teamName"></board-add-item>
     </ul>
   </div>

@@ -30,12 +30,22 @@
       ]),
       rename () {
         this.renameBoard({
+          teamId: this.teamId,
+          id: this.id,
           name: this.nameDom.value
         });
         this.$emit('close');
       }
     },
     props: {
+      teamId: {
+        type: String,
+        required: true
+      },
+      id: {
+        type: String,
+        required: true
+      },
       name: String
     }
   };
