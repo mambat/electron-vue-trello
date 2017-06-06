@@ -1,3 +1,4 @@
+import boardDB from '../database/board';
 import teamDB from '../database/team';
 import * as types from './mutation-types';
 
@@ -75,6 +76,14 @@ export const createBoard = ({commit}, board) => {
     this.hidePopOver({commit});
   }.bind(this), function (err) {
     commit(types.POP_OVER_SUBMIT_FAILURE, err.message);
+  });
+};
+
+export const queryBoard = ({commit}, params) => {
+  boardDB.retrieveBoard(params, function (result) {
+    commit(types.QUERY_BOARD_SUCCESS, result);
+  }, function (err) {
+    alert('load board failed: ' + JSON.stringify(err));
   });
 };
 

@@ -11,9 +11,17 @@
           <div id="board" class="u-fancy-scrollbar">
             <draggable v-model="lists" class="draggable-lists"
                        :options="{handle:'.list-header', ghostClass: 'ghost'}">
-              <list v-for="list in lists" :list="list" :target="target" :cardAdd="cardAdd" :listNameEditing="listNameEditing" @syncTarget="syncTarget" @syncListNameFrame="syncListNameFrame" @syncAddCardBox="syncAddCardBox"></list>
+              <list v-for="list in lists"
+                    :list="list"
+                    :target="target"
+                    :cardAdd="cardAdd"
+                    :listNameEditing="listNameEditing"
+                    @syncTarget="syncTarget"
+                    @syncListNameFrame="syncListNameFrame"
+                    @syncAddCardBox="syncAddCardBox">
+              </list>
             </draggable>
-              <div class="list-wrapper mod-add" :class="{'is-idle': !listAdd}">
+            <div class="list-wrapper mod-add" :class="{'is-idle': !listAdd}">
               <span class="placeholder" @click="openAddListBox">Add a list…</span>
               <input class="list-name-input" type="text" name="name" placeholder="Add a list…" autocomplete="off" dir="auto" maxlength="512"
                      v-model="listContent">
@@ -37,14 +45,22 @@
   export default {
     name: 'board-page',
     mixins: [bodyClassMixin],
-    data: () => ({
-      target: {adding: '', editing: ''},
-      listAdd: false,
-      listContent: '',
-      listNameEditing: false,
-      cardAdd: false,
-      bodyClass: 'body-board-view'
-    }),
+    data: function () {
+      return {
+        target: {adding: '', editing: ''},
+        listAdd: false,
+        listContent: '',
+        listNameEditing: false,
+        cardAdd: false,
+        bodyClass: 'body-board-view'
+      };
+    },
+    created: function () {
+      this.queryBoard({
+        id: this.$route.params.id,
+        name: this.$route.params.name
+      });
+    },
     computed: {
       ...mapGetters([
         'board'
@@ -60,6 +76,7 @@
     },
     methods: {
       ...mapActions([
+        'queryBoard',
         'addListToBoard',
         'showPopOverRenameBoard'
       ]),
