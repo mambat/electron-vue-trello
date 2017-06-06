@@ -8,43 +8,46 @@
       </div>
       <div class="list-card-details">
         <div class="list-card-labels"></div>
-        <a class="list-card-title" dir="auto" href="#">
+        <a class="list-card-title" dir="auto" href="javascript:void(0);">
           <span class="card-short-id hide">#14</span>
           {{card.title}}
         </a>
-        <div class="badges">
-                      <span>
-                        <div class="badge is-icon-only" title="This card has a description.">
-                          <span class="badge-icon icon-sm icon-description"></span>
-                        </div>
-                      </span>
-          <span><span></span></span>
-        </div>
-        <div class="list-card-members"></div>
+        <!--<div class="badges">-->
+          <!--<span>-->
+            <!--<div class="badge is-icon-only" title="This card has a description.">-->
+              <!--<span class="badge-icon icon-sm icon-description"></span>-->
+            <!--</div>-->
+          <!--</span>-->
+          <!--<span><span></span></span>-->
+        <!--</div>-->
+        <!--<div class="list-card-members"></div>-->
       </div>
-      <p class="list-card-dropzone">Drop files to upload.</p>
+      <!--<p class="list-card-dropzone">Drop files to upload.</p>-->
     </div>
     <div class="placeholder"></div>
   </div>
 </template>
 <style scoped>
-  .card-box{
+  .card-box {
     position: relative;
   }
+
   .placeholder {
     display: none;
   }
-  .ghost .list-card{
-    opacity: 0!important;
+
+  .ghost .list-card {
+    opacity: 0 !important;
   }
-  .ghost .placeholder{
+
+  .ghost .placeholder {
     position: absolute;
-    top:0px;
+    top: 0px;
     width: 100%;
     height: 100%;
     border-radius: 3px;
     background: rgba(0, 0, 0, .3);
-    display: inline-block!important;
+    display: inline-block !important;
   }
 
 </style>

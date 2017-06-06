@@ -10,21 +10,21 @@
         <div class="list-card-details">
           <div class="list-card-labels"></div>
           <textarea class="list-card-edit-title" dir="auto" style="overflow: hidden; word-wrap: break-word; resize: none; height: 90px;" ref="title">{{editorParams.title}}</textarea>
-          <div class="badges">
-            <span>
-              <div class="badge is-icon-only" title="This card has a description.">
-                <span class="badge-icon icon-sm icon-description"></span>
-              </div>
-              <div class="badge" title="Attachments">
-                <span class="badge-icon icon-sm icon-attachment"></span>
-                <span class="badge-text">1</span>
-              </div>
-            </span>
-            <span></span>
-          </div>
-          <div class="list-card-members"></div>
+          <!--<div class="badges">-->
+            <!--<span>-->
+              <!--<div class="badge is-icon-only" title="This card has a description.">-->
+                <!--<span class="badge-icon icon-sm icon-description"></span>-->
+              <!--</div>-->
+              <!--<div class="badge" title="Attachments">-->
+                <!--<span class="badge-icon icon-sm icon-attachment"></span>-->
+                <!--<span class="badge-text">1</span>-->
+              <!--</div>-->
+            <!--</span>-->
+            <!--<span></span>-->
+          <!--</div>-->
+          <!--<div class="list-card-members"></div>-->
         </div>
-        <p class="list-card-dropzone">Drop files to upload.</p>
+        <!--<p class="list-card-dropzone">Drop files to upload.</p>-->
       </div>
       <input class="primary wide" type="submit" value="保存" @click="save">
       <div class="quick-card-editor-buttons fade-in">
