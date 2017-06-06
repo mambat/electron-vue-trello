@@ -12,3 +12,11 @@ export function personalTeamId () {
 export function newBoardId () {
   return 'b_' + new Date().getTime();
 }
+
+export function newListId () {
+  return 'l_' + new Date().getTime();
+}
+
+export function newCardId () {
+  return 'c_' + new Date().getTime();
+}

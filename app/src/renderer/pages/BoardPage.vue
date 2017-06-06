@@ -12,6 +12,7 @@
             <draggable v-model="lists" class="draggable-lists"
                        :options="{handle:'.list-header', ghostClass: 'ghost'}">
               <list v-for="list in lists"
+                    :board-id="id"
                     :list="list"
                     :target="target"
                     :cardAdd="cardAdd"
@@ -23,7 +24,7 @@
             </draggable>
             <div class="list-wrapper mod-add" :class="{'is-idle': !listAdd}">
               <span class="placeholder" @click="openAddListBox">Add a list…</span>
-              <input class="list-name-input" type="text" name="name" placeholder="Add a list…" autocomplete="off" dir="auto" maxlength="512"
+              <input class="list-name-input" type="text" name="name" placeholder="添加一个列表…" autocomplete="off" dir="auto" maxlength="512"
                      v-model="listContent">
               <div class="list-add-controls u-clearfix">
                 <input class="primary mod-list-add-button" type="submit" value="Save" @click="newList()">
@@ -53,12 +54,12 @@
         listNameEditing: false,
         cardAdd: false,
         bodyClass: 'body-board-view',
-        teamId: this.$route.params.team
+        id: this.$route.params.id
       };
     },
     created: function () {
       this.queryBoard({
-        id: this.$route.params.id,
+        id: this.id,
         name: this.$route.params.name
       });
     },
@@ -81,14 +82,6 @@
         'addListToBoard',
         'showPopOverRenameBoard'
       ]),
-      move (evt) {
-        evt.clone.style.color = 'red';
-        evt.from.style.color = 'blue';
-        evt.item.style.color = 'white';
-        console.log(evt.clone);
-        console.log(evt.from);
-        console.log(evt.item);
-      },
       packup () {
         if (event.target.id === 'board') {
           this.syncListNameFrame(false);
@@ -105,6 +98,7 @@
       newList () {
         if (this.isEmpty(this.listContent)) return;
         this.addListToBoard({
+          boardId: this.$route.params.id,
           name: this.listContent
         });
         this.listContent = '';
@@ -126,7 +120,7 @@
             top: rect.top
           },
           params: {
-            teamId: this.teamId,
+            teamId: this.$route.params.team,
             boardId: this.board.id,
             boardName: this.board.name
           }
@@ -145,5 +139,6 @@
 <style scoped>
   .draggable-lists {
     display: inline-block;
+    height: 100%;
   }
 </style>

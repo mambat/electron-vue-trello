@@ -6,7 +6,7 @@
         <h2 class="list-header-name-assist" dir="auto">{{list.name}}</h2>
         <textarea class="list-header-name mod-list-name" :class="{'is-editing': isEditingListName}" spellcheck="false" dir="auto" maxlength="512"
                   style="overflow: hidden; word-wrap: break-word; height: 24px;" ref="listNameFrame">{{list.name}}</textarea>
-        <p class="list-header-num-cards hide">{{list.cards.length}} cards</p>
+        <p class="list-header-num-cards hide">{{list.cards ? list.cards.length : 0}} cards</p>
         <div class="list-header-extras" ref="extras">
                   <span class="list-header-extras-subscribe hide">
                     <span class="icon-sm icon-subscribe"></span>
@@ -24,13 +24,14 @@
           <div class="list-card">
             <div class="list-card-details u-clearfix">
               <div class="list-card-labels u-clearfix"></div>
-              <textarea class="list-card-composer-textarea" dir="auto" style="overflow: hidden; word-wrap: break-word; resize: none; height: 54px;" v-model="newCardContent"></textarea>
+              <textarea class="list-card-composer-textarea" dir="auto" style="overflow: hidden; word-wrap: break-word; resize: none; height: 54px;"
+                        v-model="newCardContent"></textarea>
               <div class="list-card-members"></div>
             </div>
           </div>
           <div class="cc-controls u-clearfix">
             <div class="cc-controls-section">
-              <input class="primary confirm mod-compact" type="submit" value="Add" @click="addCard(list.id)">
+              <input class="primary confirm mod-compact" type="submit" value="Add" @click="addCard()">
               <a class="icon-lg icon-close dark-hover" @click="closeAddCardBox"></a>
             </div>
             <div class="cc-controls-section mod-right">
@@ -39,30 +40,36 @@
           </div>
         </div>
       </div>
-      <a v-show="!isAddingCard" class="open-card-composer" @click="openAddCardBox">Add a card…</a>
+      <a v-show="!isAddingCard" class="open-card-composer" @click="openAddCardBox">添加卡片…</a>
     </div>
     <div class="placeholder"></div>
   </div>
 </template>
 <style scoped>
-  .card-drag-box{min-height: 10px}
-  .list-wrapper{
+  .card-drag-box {
+    min-height: 10px
+  }
+
+  .list-wrapper {
     position: relative;
   }
+
   .placeholder {
     display: none;
   }
-  .ghost .list{
-    opacity: 0!important;
+
+  .ghost .list {
+    opacity: 0 !important;
   }
-  .ghost .placeholder{
+
+  .ghost .placeholder {
     position: absolute;
-    top:0px;
+    top: 0px;
     width: 100%;
     height: 100%;
     border-radius: 3px;
     background: rgba(0, 0, 0, .3);
-    display: inline-block!important;
+    display: inline-block !important;
   }
 </style>
 <script>
@@ -74,6 +81,10 @@
       newCardContent: ''
     }),
     props: {
+      boardId: {
+        type: String,
+        required: true
+      },
       list: Object,
       target: Object,
       listNameEditing: Boolean,
@@ -97,7 +108,7 @@
     },
     methods: {
       ...mapActions([
-        'saveListName',
+        'renameListName',
         'addCardToList',
         'showPopOverListActions'
       ]),
@@ -119,10 +130,11 @@
       syncListNameFrame (bol) {
         this.$emit('syncListNameFrame', bol);
       },
-      addCard (listId) {
+      addCard () {
         if (this.isEmpty(this.newCardContent)) return;
         this.addCardToList({
-          belongs: listId,
+          boardId: this.boardId,
+          belongs: this.list.id,
           title: this.newCardContent
         });
         this.cleanAddCardBox();
@@ -153,7 +165,8 @@
           dom.focus();
           dom.select();
         } else {
-          this.saveListName({
+          this.renameListName({
+            boardId: this.boardId,
             id: this.list.id,
             name: dom.value
           });

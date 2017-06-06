@@ -13,17 +13,18 @@ const mutations = {
   [types.SAVE_LIST_NAME_OVER] (state, params) {
     state.data.lists[state.data.lists.findIndex((n) => n.id === params.id)].name = params.name;
   },
-  [types.ADD_LIST_TO_BOARD_OVER] (state, params) {
-    let list = {id: mockGenerateId(), name: params.name, cards: []};
-    state.data.lists.push(list);
+  [types.ADD_LIST_TO_BOARD_OVER] (state, list) {
+    state.data.lists.push(Object.assign({}, list, {cards: []}));
   },
   [types.ADD_CARD_TO_LIST_OVER] (state, params) {
-    let card = {belongs: params.belongs, id: mockGenerateId(), title: params.title};
-    state.data.lists[state.data.lists.findIndex((n) => n.id === params.belongs)].cards.push(card);
-  },
-  [types.ADD_CARD_TO_LIST_OVER] (state, params) {
-    let card = {belongs: params.belongs, id: mockGenerateId(), title: params.title};
-    state.data.lists[state.data.lists.findIndex((n) => n.id === params.belongs)].cards.push(card);
+    let index = state.data.lists.findIndex((n) => n.id === params.belongs);
+    if (index >= 0) {
+      let lists = state.data.lists;
+      let cards = lists[index].cards || [];
+      cards.push({id: params.id, title: params.title});
+      lists[index].cards = cards;
+      state.data = Object.assign({}, state.data, {lists: lists});
+    }
   },
   [types.SORT_CARD_LIST_OVER] (state, params) {
     state.data.lists = params;
@@ -58,10 +59,6 @@ const mutations = {
     state.data.lists.splice(state.data.lists.findIndex((n) => n.id === params.id), 1);
   }
 };
-
-function mockGenerateId () {
-  return new Date().getTime();
-}
 
 export default {
   state,

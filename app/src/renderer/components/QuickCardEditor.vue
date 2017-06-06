@@ -26,31 +26,31 @@
         </div>
         <p class="list-card-dropzone">Drop files to upload.</p>
       </div>
-      <input class="primary wide" type="submit" value="Save" @click="save">
+      <input class="primary wide" type="submit" value="保存" @click="save">
       <div class="quick-card-editor-buttons fade-in">
         <!--<a class="quick-card-editor-buttons-item" href="#">-->
-          <!--<span class="icon-sm icon-label light"></span>-->
-          <!--<span class="quick-card-editor-buttons-item-text">Edit Labels</span>-->
+        <!--<span class="icon-sm icon-label light"></span>-->
+        <!--<span class="quick-card-editor-buttons-item-text">Edit Labels</span>-->
         <!--</a>-->
         <!--<a class="quick-card-editor-buttons-item js-edit-members" href="#">-->
-          <!--<span class="icon-sm icon-member light"></span>-->
-          <!--<span class="quick-card-editor-buttons-item-text">Change Members</span>-->
+        <!--<span class="icon-sm icon-member light"></span>-->
+        <!--<span class="quick-card-editor-buttons-item-text">Change Members</span>-->
         <!--</a>-->
         <!--<a class="quick-card-editor-buttons-item js-move-card" href="#">-->
-          <!--<span class="icon-sm icon-move light"></span>-->
-          <!--<span class="quick-card-editor-buttons-item-text">Move</span>-->
+        <!--<span class="icon-sm icon-move light"></span>-->
+        <!--<span class="quick-card-editor-buttons-item-text">Move</span>-->
         <!--</a>-->
         <!--<a class="quick-card-editor-buttons-item js-copy-card" href="#">-->
-          <!--<span class="icon-sm icon-card light"></span>-->
-          <!--<span class="quick-card-editor-buttons-item-text">Copy</span>-->
+        <!--<span class="icon-sm icon-card light"></span>-->
+        <!--<span class="quick-card-editor-buttons-item-text">Copy</span>-->
         <!--</a>-->
         <!--<a class="quick-card-editor-buttons-item js-edit-due-date" href="#">-->
-          <!--<span class="icon-sm icon-clock light"></span>-->
-          <!--<span class="quick-card-editor-buttons-item-text">Change Due Date</span>-->
+        <!--<span class="icon-sm icon-clock light"></span>-->
+        <!--<span class="quick-card-editor-buttons-item-text">Change Due Date</span>-->
         <!--</a>-->
         <a class="quick-card-editor-buttons-item js-archive" @click="archive">
           <span class="icon-sm icon-archive light"></span>
-          <span class="quick-card-editor-buttons-item-text">Archive</span>
+          <span class="quick-card-editor-buttons-item-text">归档</span>
         </a>
       </div>
     </div>

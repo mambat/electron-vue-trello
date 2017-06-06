@@ -3,6 +3,7 @@
  */
 import path from 'path';
 import PouchDB from 'pouchdb';
+import * as ids from '../utils/ids';
 
 let userDataPath = require('electron').remote.getGlobal('sharedObject').userDataPath;
 let db = new PouchDB(path.join(userDataPath, '/board'));
@@ -31,6 +32,67 @@ const retrieveBoard = function (params, success, failure) {
     });
 };
 
+const addList = function (params, success, failure) {
+  let list = {id: ids.newListId(), name: params.name};
+  db.get(params.boardId)
+    .then(function (doc) {
+      let lists = doc.lists || [];
+      lists.push(list);
+      return db.put(Object.assign({}, doc, {lists: lists}));
+    })
+    .then(function (result) {
+      success && success(list);
+    })
+    .catch(function (err) {
+      failure && failure(err);
+    });
+};
+
+const renameListName = function (params, success, failure) {
+  db.get(params.boardId)
+    .then(function (doc) {
+      for (let i = 0; i < doc.lists.length; i++) {
+        if (doc.lists[i].id === params.id) {
+          doc.lists[i].name = params.name;
+          return db.put(doc);
+        }
+      }
+    })
+    .then(function (result) {
+      success && success(result);
+    })
+    .catch(function (err) {
+      failure && failure(err);
+    });
+};
+
+const addCard = function (params, success, failure) {
+  let card = {id: ids.newCardId(), title: params.title};
+  db.get(params.boardId)
+    .then(function (doc) {
+      let lists = doc.lists;
+      for (let i = 0; i < lists.length; i++) {
+        let list = lists[i];
+        if (list.id === params.belongs) {
+          let cards = list.cards || [];
+          cards.push(Object.assign(card));
+          list.cards = cards;
+          lists[i] = list;
+          return db.put(Object.assign({}, doc, {lists: lists}));
+        }
+      }
+    })
+    .then(function (result) {
+      success && success(card);
+    })
+    .catch(function (err) {
+      failure && failure(err);
+    });
+};
+
 export default {
-  retrieveBoard
+  retrieveBoard,
+  addList,
+  renameListName,
+  addCard
 };

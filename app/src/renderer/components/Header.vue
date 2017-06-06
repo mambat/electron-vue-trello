@@ -1,9 +1,9 @@
 <template>
   <div id="header">
-    <a class="header-logo" :class="{'is-throbbing': isThrobbing}" href="/">
+    <router-link class="header-logo" :class="{'is-throbbing': isThrobbing}" to="/">
       <span class="header-logo-loading"></span>
       <span class="header-logo-default"></span>
-    </a>
+    </router-link>
   </div>
 </template>
 

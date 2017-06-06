@@ -87,16 +87,28 @@ export const queryBoard = ({commit}, params) => {
   });
 };
 
-export const saveListName = ({commit}, params) => {
-  commit(types.SAVE_LIST_NAME_OVER, params);
+export const renameListName = ({commit}, params) => {
+  boardDB.renameListName(params, function (result) {
+    commit(types.SAVE_LIST_NAME_OVER, params);
+  }, function (err) {
+    alert('save list name failed: ' + JSON.stringify(err));
+  });
 };
 
 export const addListToBoard = ({commit}, params) => {
-  commit(types.ADD_LIST_TO_BOARD_OVER, params);
+  boardDB.addList(params, function (list) {
+    commit(types.ADD_LIST_TO_BOARD_OVER, list);
+  }, function (err) {
+    alert('add list failed: ' + JSON.stringify(err));
+  });
 };
 
 export const addCardToList = ({commit}, params) => {
-  commit(types.ADD_CARD_TO_LIST_OVER, params);
+  boardDB.addCard(params, function (card) {
+    commit(types.ADD_CARD_TO_LIST_OVER, Object.assign(params, {id: card.id}));
+  }, function (err) {
+    alert('add card failed: ' + JSON.stringify(err));
+  });
 };
 
 export const sortCardList = ({commit}, params) => {

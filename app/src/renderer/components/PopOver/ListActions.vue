@@ -15,7 +15,7 @@
         <!--</ul>-->
         <!--<hr />-->
         <ul class="pop-over-list">
-          <li><a @click="archive">Archive This List</a></li>
+          <li><a @click="archive">将此列表进行归档</a></li>
         </ul>
       </div>
     </div>
