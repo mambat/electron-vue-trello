@@ -188,7 +188,9 @@ const dndAddCard = function (params, failure) {
     .then(function (doc) {
       for (let i = 0; i < doc.lists.length; i++) {
         if (doc.lists[i].id === params.belongs) {
-          doc.lists[i].cards.splice(params.newIndex, 0, params.element);
+          let cards = doc.lists[i].cards || [];
+          cards.splice(params.newIndex, 0, params.element);
+          doc.lists[i].cards = cards;
           return db.put(doc);
         }
       }
