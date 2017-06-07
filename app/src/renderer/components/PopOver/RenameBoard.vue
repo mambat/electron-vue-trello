@@ -29,6 +29,7 @@
         'renameBoard'
       ]),
       rename () {
+        if (this.nameDom.value.trim() === '') return;
         this.renameBoard({
           teamId: this.teamId,
           id: this.id,

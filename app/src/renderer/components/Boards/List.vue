@@ -202,6 +202,10 @@
           dom.select();
         } else {
           if (this.list.name === dom.value) return;
+          if (dom.value.trim() === '') {
+            dom.value = this.list.name;
+            return;
+          }
           this.renameListName({
             boardId: this.boardId,
             id: this.list.id,

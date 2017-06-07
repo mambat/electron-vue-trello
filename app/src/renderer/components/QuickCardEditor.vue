@@ -11,16 +11,16 @@
           <div class="list-card-labels"></div>
           <textarea class="list-card-edit-title" dir="auto" style="overflow: hidden; word-wrap: break-word; resize: none; height: 90px;" ref="title">{{editorParams.title}}</textarea>
           <!--<div class="badges">-->
-            <!--<span>-->
-              <!--<div class="badge is-icon-only" title="This card has a description.">-->
-                <!--<span class="badge-icon icon-sm icon-description"></span>-->
-              <!--</div>-->
-              <!--<div class="badge" title="Attachments">-->
-                <!--<span class="badge-icon icon-sm icon-attachment"></span>-->
-                <!--<span class="badge-text">1</span>-->
-              <!--</div>-->
-            <!--</span>-->
-            <!--<span></span>-->
+          <!--<span>-->
+          <!--<div class="badge is-icon-only" title="This card has a description.">-->
+          <!--<span class="badge-icon icon-sm icon-description"></span>-->
+          <!--</div>-->
+          <!--<div class="badge" title="Attachments">-->
+          <!--<span class="badge-icon icon-sm icon-attachment"></span>-->
+          <!--<span class="badge-text">1</span>-->
+          <!--</div>-->
+          <!--</span>-->
+          <!--<span></span>-->
           <!--</div>-->
           <!--<div class="list-card-members"></div>-->
         </div>
@@ -101,6 +101,7 @@
         } // 避免click穿透触发蒙层下元素click事件
       },
       save () {
+        if (this.$refs.title.value === '' || this.$refs.title.value.trim() === '') return;
         this.saveQuickCardEditor({
           boardId: this.editorParams.boardId,
           belongs: this.editorParams.belongs,
