@@ -32,14 +32,15 @@
           <div class="list-card">
             <div class="list-card-details u-clearfix">
               <div class="list-card-labels u-clearfix"></div>
-              <textarea class="list-card-composer-textarea" dir="auto" style="overflow: hidden; word-wrap: break-word; resize: none; height: 54px;"
-                        v-model="newCardContent"></textarea>
+              <textarea class="list-card-composer-textarea" dir="auto" v-model="newCardContent"
+                        style="overflow: hidden; word-wrap: break-word; resize: none; height: 54px;"
+                        v-focus="addCardInputFocused" @focus="addCardInputFocused = true" @blur="addCardInputFocused = false"></textarea>
               <div class="list-card-members"></div>
             </div>
           </div>
           <div class="cc-controls u-clearfix">
             <div class="cc-controls-section">
-              <input class="primary confirm mod-compact" type="submit" value="Add" @click="addCard()">
+              <input class="primary confirm mod-compact" type="submit" value="添加" @click="addCard()">
               <a class="icon-lg icon-close dark-hover" @click="closeAddCardBox"></a>
             </div>
             <!--<div class="cc-controls-section mod-right">-->
@@ -83,14 +84,16 @@
 <script>
   import { mapActions } from 'vuex';
   import { mixin as clickaway } from 'vue-clickaway';
+  import { mixin as focusMixin } from 'vue-focus';
   import Card from '../../components/Boards/Card.vue';
 
   export default {
-    mixins: [clickaway],
+    mixins: [clickaway, focusMixin],
     data: function () {
       return {
         newCardContent: '',
-        addingCardShowAt: 0
+        addingCardShowAt: 0,
+        addCardInputFocused: true
       };
     },
     props: {
@@ -208,6 +211,7 @@
       },
       isAddingCard: function (newValue, oldValue) {
         this.addingCardShowAt = newValue ? new Date().getTime() : 0;
+        this.addCardInputFocused = true;
       }
     },
     components: {

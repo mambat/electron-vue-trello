@@ -15,6 +15,7 @@ const mutations = {
   },
   [types.ADD_LIST_TO_BOARD_OVER] (state, list) {
     let lists = state.data.lists || [];
+    list.cards = [];
     lists.push(list);
     state.data = Object.assign({}, state.data, {lists: lists});
   },
