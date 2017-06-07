@@ -1,5 +1,5 @@
 <template>
-  <div class="pop-over is-shown" v-show="popoverShown" :style="calcPos()">
+  <div class="pop-over is-shown" v-show="popoverShown" :style="calcPos()" v-on-clickaway="clickedOutside">
     <div class="pop-over-header">
       <span class="pop-over-header-title">{{headerTitle}}</span>
       <a class="pop-over-header-close-btn icon-sm icon-close" href="javascript:void(0);" @click="close"></a>
@@ -27,6 +27,7 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex';
+  import { mixin as clickaway } from 'vue-clickaway';
   import * as vals from '../utils/vals';
   import CreateTeam from './PopOver/CreateTeam';
   import DeleteTeam from './PopOver/DeleteTeam';
@@ -36,6 +37,7 @@
 
   export default {
     name: 'popover',
+    mixins: [clickaway],
     components: {
       CreateTeam,
       DeleteTeam,
@@ -47,7 +49,8 @@
       return {
         headerTitle: '',
         contentHeight: 0,
-        pageHeaderHeight: 40
+        pageHeaderHeight: 40,
+        showAt: 0
       };
     },
     computed: {
@@ -74,6 +77,9 @@
       }
     },
     watch: {
+      popoverShown: function (newValue, oldValue) {
+        this.showAt = newValue ? new Date().getTime() : 0;
+      },
       popoverContent: function (newValue, oldValue) {
         if (newValue === vals.POP_OVER_CREATE_TEAM) {
           this.headerTitle = '新建团队';
@@ -112,6 +118,11 @@
       },
       handleEsc: function (e) {
         if (e.which === 27) {
+          this.close();
+        }
+      },
+      clickedOutside: function () {
+        if (new Date().getTime() - this.showAt > 300) {
           this.close();
         }
       }

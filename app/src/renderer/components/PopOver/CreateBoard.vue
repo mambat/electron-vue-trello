@@ -1,7 +1,9 @@
 <template>
   <div class="pop-over-content u-fancy-scrollbar" style="max-height: 222px;">
     <label for="boardNewTitle">标题</label>
-    <input id="boardNewTitle" class="non-empty" type="text" name="name" placeholder="例如 “2017-05-31开发列表” …" v-model="name" dir="auto">
+    <input id="boardNewTitle" class="non-empty" type="text" name="name"
+           placeholder="例如 “2017-05-31开发列表” …" v-model="name" dir="auto"
+           v-focus="focused" @focus="focused = true" @blur="focused = false">
     <div>
       <div class="u-clearfix">
         <label class="u-float-left" style="margin-right: 8px;">团队</label>
@@ -23,10 +25,12 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex';
+  import { mixin as focusMixin } from 'vue-focus';
   import * as ids from '../../utils/ids';
 
   export default {
     name: 'create-board',
+    mixins: [focusMixin],
     props: {
       teamId: {
         type: String,
@@ -39,7 +43,8 @@
     },
     data: function () {
       return {
-        name: ''
+        name: '',
+        focused: true
       };
     },
     computed: {

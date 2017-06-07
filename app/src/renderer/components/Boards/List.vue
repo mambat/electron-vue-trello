@@ -28,7 +28,7 @@
                 @syncListNameFrame="syncListNameFrame">
           </card>
         </draggable>
-        <div v-show="isAddingCard" class="card-composer">
+        <div v-show="isAddingCard" class="card-composer" v-on-clickaway="clickedOutOfAddingCard">
           <div class="list-card">
             <div class="list-card-details u-clearfix">
               <div class="list-card-labels u-clearfix"></div>
@@ -43,7 +43,7 @@
               <a class="icon-lg icon-close dark-hover" @click="closeAddCardBox"></a>
             </div>
             <!--<div class="cc-controls-section mod-right">-->
-              <!--<a class="icon-lg icon-overflow-menu-horizontal dark-background-hover" href="#"></a>-->
+            <!--<a class="icon-lg icon-overflow-menu-horizontal dark-background-hover" href="#"></a>-->
             <!--</div>-->
           </div>
         </div>
@@ -81,13 +81,18 @@
   }
 </style>
 <script>
-  import Card from '../../components/Boards/Card.vue';
   import { mapActions } from 'vuex';
+  import { mixin as clickaway } from 'vue-clickaway';
+  import Card from '../../components/Boards/Card.vue';
 
   export default {
-    data: () => ({
-      newCardContent: ''
-    }),
+    mixins: [clickaway],
+    data: function () {
+      return {
+        newCardContent: '',
+        addingCardShowAt: 0
+      };
+    },
     props: {
       boardId: {
         type: String,
@@ -122,6 +127,12 @@
         'dndMoveCard',
         'dndAddCard'
       ]),
+      clickedOutOfAddingCard: function () {
+        if (this.addingCardShowAt === 0) return;
+        if (new Date().getTime() - this.addingCardShowAt > 300) {
+          this.closeAddCardBox();
+        }
+      },
       openAddCardBox () {
         this.cleanAddCardBox();
         this.$emit('syncTarget', {adding: this.list.id});
@@ -194,6 +205,9 @@
             name: dom.value
           });
         }
+      },
+      isAddingCard: function (newValue, oldValue) {
+        this.addingCardShowAt = newValue ? new Date().getTime() : 0;
       }
     },
     components: {
