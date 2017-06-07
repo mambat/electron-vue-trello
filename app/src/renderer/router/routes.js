@@ -5,7 +5,7 @@ export default [
     component: require('pages/HomePage')
   },
   {
-    path: '/board/:team/:id/:name',
+    path: '/board/:team/:id',
     name: 'board-page',
     component: require('pages/BoardPage')
   },

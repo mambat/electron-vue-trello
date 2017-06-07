@@ -31,7 +31,7 @@
     },
     computed: {
       link: function () {
-        return '/board/' + this.teamId + '/' + this.item.id + '/' + this.item.name;
+        return '/board/' + this.teamId + '/' + this.item.id;
       }
     }
   };

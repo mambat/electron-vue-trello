@@ -62,10 +62,7 @@
       };
     },
     created: function () {
-      this.queryBoard({
-        id: this.id,
-        name: this.$route.params.name
-      });
+      this.queryBoard(this.id);
     },
     computed: {
       ...mapGetters([

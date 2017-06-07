@@ -8,7 +8,7 @@ const state = {
 
 const mutations = {
   [types.QUERY_BOARD_SUCCESS] (state, result) {
-    state.data = Object.assign({}, result);
+    state.data = Object.assign({}, state.data, result);
   },
   [types.SAVE_LIST_NAME_OVER] (state, params) {
     state.data.lists[state.data.lists.findIndex((n) => n.id === params.id)].name = params.name;

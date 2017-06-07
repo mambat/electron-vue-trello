@@ -8,24 +8,24 @@ import * as ids from '../utils/ids';
 let userDataPath = require('electron').remote.getGlobal('sharedObject').userDataPath;
 let db = new PouchDB(path.join(userDataPath, '/board'));
 
-const initBoard = function (params, success, failure) {
-  db.put({_id: params.id, id: params.id})
+const initBoard = function (id, success, failure) {
+  db.put({_id: id, id: id})
     .then(function (result) {
-      success && success(params);
+      success && success(result);
     })
     .catch(function (err) {
       failure && failure(err);
     });
 };
 
-const retrieveBoard = function (params, success, failure) {
-  db.get(params.id)
+const retrieveBoard = function (id, success, failure) {
+  db.get(id)
     .then(function (result) {
       success && success(result);
     })
     .catch(function (err) {
       if (err.status === 404) {
-        initBoard(params, success, failure);
+        initBoard(id, success, failure);
         return;
       }
       failure && failure(err);

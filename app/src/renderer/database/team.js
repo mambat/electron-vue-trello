@@ -123,6 +123,24 @@ const renameBoard = function (params, success, failure) {
     });
 };
 
+const queryBoardNameById = function (id, success, failure) {
+  db.allDocs({include_docs: true})
+    .then(function (result) {
+      let rows = result.rows || [];
+      for (let i = 0; i < rows.length; i++) {
+        let doc = rows[i].doc;
+        for (let j = 0; j < doc.boards.length; j++) {
+          if (doc.boards[j].id === id) {
+            success && success(doc.boards[j].name);
+          }
+        }
+      }
+    })
+    .catch(function (err) {
+      failure && failure(err);
+    });
+};
+
 export default {
   retrieveAll,
   addTeam,
@@ -130,5 +148,6 @@ export default {
   updateTeam,
   deleteTeam,
   addBoard,
-  renameBoard
+  renameBoard,
+  queryBoardNameById
 };
