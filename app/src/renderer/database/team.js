@@ -88,9 +88,8 @@ const updateTeam = function (team, success, failure) {
 };
 
 const addBoard = function (board, success, failure) {
-  let teamId = board.teamId;
-  board = Object.assign({}, board, {id: ids.newBoardId()});
-  db.get(teamId)
+  board.id = ids.newBoardId();
+  db.get(board.teamId)
     .then(function (doc) {
       let boards = doc.boards || [];
       boards.push(board);

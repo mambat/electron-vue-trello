@@ -14,7 +14,9 @@ const mutations = {
     state.data.lists[state.data.lists.findIndex((n) => n.id === params.id)].name = params.name;
   },
   [types.ADD_LIST_TO_BOARD_OVER] (state, list) {
-    state.data.lists.push(Object.assign({}, list, {cards: []}));
+    let lists = state.data.lists || [];
+    lists.push(list);
+    state.data = Object.assign({}, state.data, {lists: lists});
   },
   [types.ADD_CARD_TO_LIST_OVER] (state, params) {
     let index = state.data.lists.findIndex((n) => n.id === params.belongs);

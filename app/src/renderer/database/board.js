@@ -38,7 +38,8 @@ const addList = function (params, success, failure) {
     .then(function (doc) {
       let lists = doc.lists || [];
       lists.push(list);
-      return db.put(Object.assign({}, doc, {lists: lists}));
+      doc.lists = lists;
+      return db.put(doc);
     })
     .then(function (result) {
       success && success(list);

@@ -24,11 +24,12 @@
               </list>
             </draggable>
             <div class="list-wrapper mod-add" :class="{'is-idle': !listAdd}">
-              <span class="placeholder" @click="openAddListBox">Add a list…</span>
-              <input class="list-name-input" type="text" name="name" placeholder="添加一个列表…" autocomplete="off" dir="auto" maxlength="512"
-                     v-model="listContent">
+              <span class="placeholder" @click="openAddListBox">添加一个列表…</span>
+              <input class="list-name-input" type="text" name="name" placeholder="添加一个列表…"
+                     autocomplete="off" dir="auto" maxlength="512" v-model="listContent"
+                     v-focus="addListInputFocused" @focus="addListInputFocused = true" @blur="addListInputFocused = false">
               <div class="list-add-controls u-clearfix">
-                <input class="primary mod-list-add-button" type="submit" value="Save" @click="newList()">
+                <input class="primary mod-list-add-button" type="submit" value="保存" @click="newList()">
                 <a class="icon-lg icon-close dark-hover" @click="closeAddListBox"></a>
               </div>
             </div>
@@ -41,12 +42,13 @@
 
 <script>
   import List from '../components/Boards/List.vue';
+  import { mixin as focusMixin } from 'vue-focus';
   import bodyClassMixin from '../mixins/body-class-mixin';
   import { mapGetters, mapActions } from 'vuex';
 
   export default {
     name: 'board-page',
-    mixins: [bodyClassMixin],
+    mixins: [bodyClassMixin, focusMixin],
     data: function () {
       return {
         target: {adding: '', editing: ''},
@@ -54,6 +56,7 @@
         listContent: '',
         listNameEditing: false,
         cardAdd: false,
+        addListInputFocused: true,
         bodyClass: 'body-board-view',
         id: this.$route.params.id
       };
@@ -96,6 +99,7 @@
       },
       closeAddListBox () {
         this.listAdd = false;
+        this.addListInputFocused = true;
       },
       newList () {
         if (this.isEmpty(this.listContent)) return;
