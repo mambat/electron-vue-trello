@@ -10,7 +10,8 @@
         <div class="board-canvas">
           <div id="board" class="u-fancy-scrollbar">
             <draggable v-model="lists" class="draggable-lists"
-                       :options="{handle:'.list-header', ghostClass: 'ghost'}">
+                       :options="{handle:'.list-header', ghostClass: 'ghost'}"
+                       @change="listChangeHandler">
               <list v-for="list in lists"
                     :board-id="id"
                     :list="list"
@@ -80,7 +81,8 @@
       ...mapActions([
         'queryBoard',
         'addListToBoard',
-        'showPopOverRenameBoard'
+        'showPopOverRenameBoard',
+        'dragAndDropList'
       ]),
       packup () {
         if (event.target.id === 'board') {
@@ -98,7 +100,7 @@
       newList () {
         if (this.isEmpty(this.listContent)) return;
         this.addListToBoard({
-          boardId: this.$route.params.id,
+          boardId: this.id,
           name: this.listContent
         });
         this.listContent = '';
@@ -128,6 +130,11 @@
       },
       isEmpty (str) {
         return typeof str === 'undefined' || str === null || str.trim() === '';
+      },
+      listChangeHandler: function (props) {
+        if (!props.moved) return;
+        props.moved.boardId = this.id;
+        this.dragAndDropList(props.moved);
       }
     },
     components: {

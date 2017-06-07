@@ -167,3 +167,21 @@ export const archiveList = ({commit}, params) => {
     alert('archive list failed: ' + JSON.stringify(err));
   });
 };
+
+export const dragAndDropList = ({commit}, params) => {
+  boardDB.swapList(params, function (err) {
+    alert('drag-and-drop list failed: ' + JSON.stringify(err));
+  });
+};
+
+export const dndMoveCard = ({commit}, params) => {
+  boardDB.dndMoveCard(params, function (err) {
+    alert('drag-and-drop card failed: ' + JSON.stringify(err));
+  });
+};
+
+export const dndAddCard = ({commit}, params) => {
+  boardDB.dndAddCard(params, function (err) {
+    alert('drag-and-drop card failed: ' + JSON.stringify(err));
+  });
+};

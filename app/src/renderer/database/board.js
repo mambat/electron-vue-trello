@@ -152,6 +152,64 @@ const archiveCard = function (params, success, failure) {
     });
 };
 
+const swapList = function (params, failure) {
+  db.get(params.boardId)
+    .then(function (doc) {
+      let temp = doc.lists[params.oldIndex];
+      doc.lists[params.oldIndex] = doc.lists[params.newIndex];
+      doc.lists[params.newIndex] = temp;
+      return db.put(doc);
+    })
+    .catch(function (err) {
+      failure && failure(err);
+    });
+};
+
+const dndMoveCard = function (params, failure) {
+  db.get(params.boardId)
+    .then(function (doc) {
+      for (let i = 0; i < doc.lists.length; i++) {
+        if (doc.lists[i].id === params.belongs) {
+          let temp = doc.lists[i].cards[params.oldIndex];
+          doc.lists[i].cards[params.oldIndex] = doc.lists[i].cards[params.newIndex];
+          doc.lists[i].cards[params.newIndex] = temp;
+          return db.put(doc);
+        }
+      }
+    })
+    .catch(function (err) {
+      failure && failure(err);
+    });
+};
+
+const dndAddCard = function (params, failure) {
+  db.get(params.boardId)
+    .then(function (doc) {
+      for (let i = 0; i < doc.lists.length; i++) {
+        if (doc.lists[i].id === params.belongs) {
+          doc.lists[i].cards.splice(params.newIndex, 0, params.element);
+          return db.put(doc);
+        }
+      }
+    })
+    .then(function (result) {
+      db.get(params.boardId)
+        .then(function (doc) {
+          for (let i = 0; i < doc.lists.length; i++) {
+            for (let j = 0; j < doc.lists[i].cards.length; j++) {
+              if (doc.lists[i].cards[j].id === params.element.id) {
+                doc.lists[i].cards.splice(j, 1);
+                return db.put(doc);
+              }
+            }
+          }
+        });
+    })
+    .catch(function (err) {
+      failure && failure(err);
+    });
+};
+
 export default {
   retrieveBoard,
   addList,
@@ -159,5 +217,8 @@ export default {
   addCard,
   editCard,
   archiveList,
-  archiveCard
+  archiveCard,
+  swapList,
+  dndMoveCard,
+  dndAddCard
 };

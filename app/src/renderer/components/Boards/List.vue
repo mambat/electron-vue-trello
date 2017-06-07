@@ -18,8 +18,15 @@
         </div>
       </div>
       <div class="list-cards u-fancy-scrollbar u-clearfix">
-        <draggable class="card-drag-box" v-model="cardList" :options="{ghostClass: 'ghost', group:'card'}">
-          <card v-for="card in cardList" :card="card" :board-id="boardId" :list-id="list.id" @syncListNameFrame="syncListNameFrame"></card>
+        <draggable class="card-drag-box" v-model="cardList"
+                   :options="{ghostClass: 'ghost', group:'card'}"
+                   @change="cardChangeHandler">
+          <card v-for="card in cardList"
+                :card="card"
+                :board-id="boardId"
+                :list-id="list.id"
+                @syncListNameFrame="syncListNameFrame">
+          </card>
         </draggable>
         <div v-show="isAddingCard" class="card-composer">
           <div class="list-card">
@@ -111,7 +118,9 @@
       ...mapActions([
         'renameListName',
         'addCardToList',
-        'showPopOverListActions'
+        'showPopOverListActions',
+        'dndMoveCard',
+        'dndAddCard'
       ]),
       openAddCardBox () {
         this.cleanAddCardBox();
@@ -158,6 +167,17 @@
       },
       isEmpty (str) {
         return typeof str === 'undefined' || str === null || str.trim() === '';
+      },
+      cardChangeHandler: function (props) {
+        if (props.moved) {
+          props.moved.boardId = this.boardId;
+          props.moved.belongs = this.list.id;
+          this.dndMoveCard(props.moved);
+        } else if (props.added) {
+          props.added.boardId = this.boardId;
+          props.added.belongs = this.list.id;
+          this.dndAddCard(props.added);
+        }
       }
     },
     watch: {
