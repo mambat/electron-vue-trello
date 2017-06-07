@@ -42,9 +42,9 @@
               <input class="primary confirm mod-compact" type="submit" value="Add" @click="addCard()">
               <a class="icon-lg icon-close dark-hover" @click="closeAddCardBox"></a>
             </div>
-            <div class="cc-controls-section mod-right">
-              <a class="icon-lg icon-overflow-menu-horizontal dark-background-hover" href="#"></a>
-            </div>
+            <!--<div class="cc-controls-section mod-right">-->
+              <!--<a class="icon-lg icon-overflow-menu-horizontal dark-background-hover" href="#"></a>-->
+            <!--</div>-->
           </div>
         </div>
       </div>
