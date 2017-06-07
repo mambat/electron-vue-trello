@@ -109,7 +109,15 @@
       },
       close: function () {
         this.hidePopOver();
+      },
+      handleEsc: function (e) {
+        if (e.which === 27) {
+          this.close();
+        }
       }
+    },
+    created: function () {
+      document.addEventListener('keydown', this.handleEsc);
     }
   };
 </script>
