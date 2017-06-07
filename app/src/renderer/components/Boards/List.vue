@@ -155,6 +155,7 @@
         this.$emit('syncListNameFrame', bol);
       },
       addCard () {
+        this.addCardInputFocused = true;
         if (this.isEmpty(this.newCardContent)) return;
         this.addCardToList({
           boardId: this.boardId,

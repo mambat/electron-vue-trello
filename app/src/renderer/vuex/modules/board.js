@@ -60,6 +60,9 @@ const mutations = {
   },
   [types.ARCHIVE_LIST_OVER] (state, params) {
     state.data.lists.splice(state.data.lists.findIndex((n) => n.id === params.id), 1);
+  },
+  [types.ARCHIVE_BOARD_SUCCESS] (state) {
+    state.data = {};
   }
 };
 

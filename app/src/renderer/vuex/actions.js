@@ -189,3 +189,15 @@ export const dndAddCard = ({commit}, params) => {
     alert('drag-and-drop card failed: ' + JSON.stringify(err));
   });
 };
+
+export const showPopOverArchiveBoard = ({commit}, params) => {
+  commit(types.SHOW_POP_OVER_ARCHIVE_BOARD, params);
+};
+
+export const archiveBoard = ({commit}, params) => {
+  teamDB.archiveBoard(params, function (result) {
+    commit(types.ARCHIVE_BOARD_SUCCESS);
+  }, function (err) {
+    alert('archive board from team failed: ' + JSON.stringify(err));
+  });
+};

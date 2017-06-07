@@ -49,6 +49,12 @@ const mutations = {
     state.pos = Object.assign({}, data.pos);
     state.params = Object.assign({}, data.params);
     state.content = vals.POP_OVER_LIST_ACTIONS;
+  },
+  [types.SHOW_POP_OVER_ARCHIVE_BOARD] (state, data) {
+    state.shown = true;
+    state.pos = Object.assign({}, data.pos);
+    state.params = Object.assign({}, data.params);
+    state.content = vals.POP_OVER_ARCHIVE_BOARD;
   }
 };
 

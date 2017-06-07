@@ -4,7 +4,7 @@
       <div>
         <label>Name</label>
         <input type="text" :value="name" dir="auto" ref="boardName"/>
-        <input class="primary wide" type="submit" value="Rename" @click="rename"/>
+        <input class="primary wide" type="submit" value="重命名" @click="rename"/>
       </div>
     </div>
   </div>

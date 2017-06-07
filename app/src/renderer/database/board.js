@@ -184,10 +184,12 @@ const dndMoveCard = function (params, failure) {
 };
 
 const dndAddCard = function (params, failure) {
+  let listToAdd = '';
   db.get(params.boardId)
     .then(function (doc) {
       for (let i = 0; i < doc.lists.length; i++) {
         if (doc.lists[i].id === params.belongs) {
+          listToAdd = i;
           let cards = doc.lists[i].cards || [];
           cards.splice(params.newIndex, 0, params.element);
           doc.lists[i].cards = cards;
@@ -199,6 +201,7 @@ const dndAddCard = function (params, failure) {
       db.get(params.boardId)
         .then(function (doc) {
           for (let i = 0; i < doc.lists.length; i++) {
+            if (i === listToAdd) continue;
             for (let j = 0; j < doc.lists[i].cards.length; j++) {
               if (doc.lists[i].cards[j].id === params.element.id) {
                 doc.lists[i].cards.splice(j, 1);
@@ -213,6 +216,16 @@ const dndAddCard = function (params, failure) {
     });
 };
 
+const archiveBoard = function (id, success) {
+  db.get(id)
+    .then(function (doc) {
+      db.remove(doc);
+    })
+    .then(function (result) {
+      success && success(result);
+    });
+};
+
 export default {
   retrieveBoard,
   addList,
@@ -223,5 +236,6 @@ export default {
   archiveCard,
   swapList,
   dndMoveCard,
-  dndAddCard
+  dndAddCard,
+  archiveBoard
 };

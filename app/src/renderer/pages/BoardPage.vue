@@ -6,6 +6,12 @@
           <a class="board-header-btn board-header-btn-name" @click="openRenameBoardPopover" ref="boardName">
             <span class="board-header-btn-text" dir="auto">{{board.name}}</span>
           </a>
+          <div class="board-header-btns mod-left">
+            <a class="board-header-btn" href="javascript:void(0);" title="归档(删除)当前看板，请谨慎操作。"
+               aria-label="归档(删除)当前看板，请谨慎操作。" @click="openArchiveBoardPopover" ref="archiveBoard">
+              <span class="icon-sm icon-archive board-header-btn-icon"></span>
+            </a>
+          </div>
         </div>
         <div class="board-canvas">
           <div id="board" class="u-fancy-scrollbar">
@@ -77,11 +83,19 @@
         }
       }
     },
+    watch: {
+      board: function (newValue, oldValue) {
+        if (!newValue || !newValue.id) {
+          this.$router.go(-1);
+        }
+      }
+    },
     methods: {
       ...mapActions([
         'queryBoard',
         'addListToBoard',
         'showPopOverRenameBoard',
+        'showPopOverArchiveBoard',
         'dragAndDropList'
       ]),
       packup () {
@@ -136,6 +150,19 @@
         if (!props.moved) return;
         props.moved.boardId = this.id;
         this.dragAndDropList(props.moved);
+      },
+      openArchiveBoardPopover () {
+        let rect = this.$refs.archiveBoard.getBoundingClientRect();
+        this.showPopOverArchiveBoard({
+          pos: {
+            left: rect.left,
+            top: rect.bottom
+          },
+          params: {
+            teamId: this.$route.params.team,
+            id: this.id
+          }
+        });
       }
     },
     components: {

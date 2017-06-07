@@ -22,6 +22,11 @@
         :board-id="popoverParams.boardId"
         @close="close">
     </list-actions>
+    <archive-board
+        v-if="isArchiveBoard && popoverShown"
+        :team-id="popoverParams.teamId"
+        :id="popoverParams.id"
+        @close="close"/>
   </div>
 </template>
 
@@ -34,6 +39,7 @@
   import CreateBoard from './PopOver/CreateBoard';
   import RenameBoard from './PopOver/RenameBoard';
   import ListActions from './PopOver/ListActions';
+  import ArchiveBoard from './PopOver/ArchiveBoard';
 
   export default {
     name: 'popover',
@@ -43,7 +49,8 @@
       DeleteTeam,
       CreateBoard,
       RenameBoard,
-      ListActions
+      ListActions,
+      ArchiveBoard
     },
     data: function () {
       return {
@@ -74,6 +81,9 @@
       },
       isListActions: function () {
         return this.popoverContent === vals.POP_OVER_LIST_ACTIONS;
+      },
+      isArchiveBoard: function () {
+        return this.popoverContent === vals.POP_OVER_ARCHIVE_BOARD;
       }
     },
     watch: {
@@ -95,6 +105,9 @@
           this.contentHeight = 168;
         } else if (newValue === vals.POP_OVER_LIST_ACTIONS) {
           this.headerTitle = '列表操作';
+          this.contentHeight = 86;
+        } else if (newValue === vals.POP_OVER_ARCHIVE_BOARD) {
+          this.headerTitle = '看板操作';
           this.contentHeight = 86;
         }
       }

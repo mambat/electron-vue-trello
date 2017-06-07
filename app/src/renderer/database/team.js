@@ -3,6 +3,7 @@
  */
 import path from 'path';
 import PouchDB from 'pouchdb';
+import boardDB from './board';
 import * as ids from '../utils/ids';
 
 let userDataPath = require('electron').remote.getGlobal('sharedObject').userDataPath;
@@ -141,6 +142,24 @@ const queryBoardNameById = function (id, success, failure) {
     });
 };
 
+const archiveBoard = function ({teamId, id}, success, failure) {
+  db.get(teamId)
+    .then(function (doc) {
+      for (let i = 0; i < doc.boards.length; i++) {
+        let board = doc.boards[i];
+        if (board.id !== id) continue;
+        doc.boards.splice(i, 1);
+        return db.put(doc);
+      }
+    })
+    .then(function (result) {
+      boardDB.archiveBoard(id, success);
+    })
+    .catch(function (err) {
+      failure && failure(err);
+    });
+};
+
 export default {
   retrieveAll,
   addTeam,
@@ -149,5 +168,6 @@ export default {
   deleteTeam,
   addBoard,
   renameBoard,
-  queryBoardNameById
+  queryBoardNameById,
+  archiveBoard
 };
