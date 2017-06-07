@@ -77,7 +77,7 @@ const deleteTeam = function (id, success, failure) {
 const updateTeam = function (team, success, failure) {
   db.get(team.id)
     .then(function (doc) {
-      return db.put(Object.assign({}, doc, team));
+      return db.put(Object.assign({}, doc, team, {_rev: doc._rev}));
     })
     .then(function (result) {
       success && success(result);
