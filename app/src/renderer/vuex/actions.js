@@ -202,7 +202,7 @@ export const archiveBoard = ({commit}, params) => {
 export const copyBoard = ({commit}, params) => {
   teamDB.copyBoard(params, function (result) {
     result.sourceId = params.id;
-    boardDB.copyBoard(result, function (result) {
+    boardDB.copyBoard(result, function (ret2) {
       commit(types.COPY_BOARD_SUCCESS, result);
     });
   }, function (err) {

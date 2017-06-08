@@ -234,6 +234,13 @@ const copyBoard = function (params, success) {
     })
     .then(function (result) {
       success && success(params);
+    })
+    .catch(function (err) {
+      if (err.status === 404) {
+        success && success(params);
+      } else {
+        throw Error('copy board detail failed');
+      }
     });
 };
 
