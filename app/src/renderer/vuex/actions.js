@@ -81,14 +81,11 @@ export const createBoard = ({commit}, board) => {
 
 export const queryBoard = ({commit}, id) => {
   boardDB.retrieveBoard(id, function (result) {
-    commit(types.QUERY_BOARD_SUCCESS, result);
+    teamDB.queryBoardNameById(id, function (name) {
+      commit(types.QUERY_BOARD_SUCCESS, Object.assign({}, result, {name: name}));
+    });
   }, function (err) {
     alert('load board failed: ' + JSON.stringify(err));
-  });
-  teamDB.queryBoardNameById(id, function (name) {
-    commit(types.QUERY_BOARD_SUCCESS, {name: name});
-  }, function (err) {
-    alert('load board name failed: ' + err);
   });
 };
 
