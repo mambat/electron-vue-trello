@@ -198,3 +198,14 @@ export const archiveBoard = ({commit}, params) => {
     alert('archive board from team failed: ' + JSON.stringify(err));
   });
 };
+
+export const copyBoard = ({commit}, params) => {
+  teamDB.copyBoard(params, function (result) {
+    result.sourceId = params.id;
+    boardDB.copyBoard(result, function (result) {
+      commit(types.COPY_BOARD_SUCCESS, result);
+    });
+  }, function (err) {
+    alert('copy board failed: ' + JSON.stringify(err));
+  });
+};

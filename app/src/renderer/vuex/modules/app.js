@@ -70,6 +70,27 @@ const mutations = {
         break;
       }
     }
+  },
+  [types.COPY_BOARD_SUCCESS] (state, params) {
+    if (params.teamId === ids.personalTeamId()) {
+      let index = state.personalBoards.findIndex((n) => n.id === params.sourceId);
+      if (index >= 0) {
+        state.personalBoards.splice(index + 1, 0, {
+          id: params.id,
+          name: params.name
+        });
+      }
+      return;
+    }
+
+    let teamIndex = state.teamBoards.findIndex((n) => n.id === params.teamId);
+    if (teamIndex < 0) return;
+    let boardIndex = state.teamBoards[teamIndex].boards.findIndex((n) => n.id === params.sourceId);
+    if (boardIndex < 0) return;
+    state.teamBoards[teamIndex].boards.splice(boardIndex + 1, 0, {
+      id: params.id,
+      name: params.name
+    });
   }
 };
 

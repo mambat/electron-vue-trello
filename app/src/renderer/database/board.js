@@ -226,6 +226,17 @@ const archiveBoard = function (id, success) {
     });
 };
 
+const copyBoard = function (params, success) {
+  db.get(params.sourceId)
+    .then(function (doc) {
+      delete doc._rev;
+      db.put(Object.assign({}, doc, {_id: params.id, id: params.id}));
+    })
+    .then(function (result) {
+      success && success(params);
+    });
+};
+
 export default {
   retrieveBoard,
   addList,
@@ -237,5 +248,6 @@ export default {
   swapList,
   dndMoveCard,
   dndAddCard,
-  archiveBoard
+  archiveBoard,
+  copyBoard
 };

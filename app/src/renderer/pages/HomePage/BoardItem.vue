@@ -1,22 +1,22 @@
 <template>
   <li class="boards-page-board-section-list-item">
-    <router-link :to="link" class="board-tile" style="background-color: rgb(0, 121, 191);">
+    <a class="board-tile" style="background-color: rgb(0, 121, 191);" @click="clickHandler">
       <span class="board-tile-fade"></span>
       <span class="board-tile-details is-badged">
-              <span :title="item.name" dir="auto" class="board-tile-details-name">{{item.name}}</span>
-          </span>
+        <span :title="item.name" dir="auto" class="board-tile-details-name">{{item.name}}</span>
+      </span>
       <span class="board-tile-options">
-          <span title="Click to star this board. It will show up at top of your boards list."
-                class="icon-sm icon-star board-tile-options-star-icon">
-          </span>
-          </span>
+        <span title="复制当前看板." class="icon-sm icon-add board-tile-options-star-icon" ref="copyBoard"></span>
+      </span>
       <span class="board-tile-badges"></span>
-    </router-link>
+    </a>
     <div class="board-tags u-clearfix"></div>
   </li>
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
+
   export default {
     name: 'board-item',
     props: {
@@ -32,6 +32,21 @@
     computed: {
       link: function () {
         return '/board/' + this.teamId + '/' + this.item.id;
+      }
+    },
+    methods: {
+      ...mapActions([
+        'copyBoard'
+      ]),
+      clickHandler: function (e) {
+        if (e.target === this.$refs.copyBoard) {
+          this.copyBoard({
+            teamId: this.teamId,
+            id: this.item.id
+          });
+        } else {
+          this.$router.push(this.link);
+        }
       }
     }
   };

@@ -3,8 +3,8 @@
  */
 import path from 'path';
 import PouchDB from 'pouchdb';
-import boardDB from './board';
 import * as ids from '../utils/ids';
+import boardDB from './board';
 
 let userDataPath = require('electron').remote.getGlobal('sharedObject').userDataPath;
 let db = new PouchDB(path.join(userDataPath, '/team'));
@@ -160,6 +160,26 @@ const archiveBoard = function ({teamId, id}, success, failure) {
     });
 };
 
+const copyBoard = function (params, success, failure) {
+  let copy = null;
+  db.get(params.teamId)
+    .then(function (doc) {
+      for (let i = 0; i < doc.boards.length; i++) {
+        let board = doc.boards[i];
+        if (board.id !== params.id) continue;
+        copy = Object.assign({}, board, {id: ids.newBoardId(), name: board.name + '_2'});
+        doc.boards.splice(i + 1, 0, copy);
+        return db.put(doc);
+      }
+    })
+    .then(function (result) {
+      success && success(copy);
+    })
+    .catch(function (err) {
+      failure && failure(err);
+    });
+};
+
 export default {
   retrieveAll,
   addTeam,
@@ -169,5 +189,6 @@ export default {
   addBoard,
   renameBoard,
   queryBoardNameById,
-  archiveBoard
+  archiveBoard,
+  copyBoard
 };
