@@ -201,7 +201,7 @@ const dndAddCard = function (params, failure) {
       db.get(params.boardId)
         .then(function (doc) {
           for (let i = 0; i < doc.lists.length; i++) {
-            if (i === listToAdd) continue;
+            if (i === listToAdd || !doc.lists[i].cards) continue;
             for (let j = 0; j < doc.lists[i].cards.length; j++) {
               if (doc.lists[i].cards[j].id === params.element.id) {
                 doc.lists[i].cards.splice(j, 1);
