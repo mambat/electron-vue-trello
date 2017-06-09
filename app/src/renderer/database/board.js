@@ -33,7 +33,7 @@ const retrieveBoard = function (id, success, failure) {
 };
 
 const addList = function (params, success, failure) {
-  let list = {id: ids.newListId(), name: params.name};
+  let list = {id: ids.newListId(), name: params.name, cards: []};
   db.get(params.boardId)
     .then(function (doc) {
       let lists = doc.lists || [];
