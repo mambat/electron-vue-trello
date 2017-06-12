@@ -4,9 +4,12 @@
 import path from 'path';
 import PouchDB from 'pouchdb';
 import * as ids from '../utils/ids';
+import sync from './sync';
 
 let userDataPath = require('electron').remote.getGlobal('sharedObject').userDataPath;
 let db = new PouchDB(path.join(userDataPath, '/board'));
+
+sync.doSync(db.name, 'http://localhost:5984/board');
 
 const initBoard = function (id, success, failure) {
   db.put({_id: id, id: id})

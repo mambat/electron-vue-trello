@@ -5,9 +5,12 @@ import path from 'path';
 import PouchDB from 'pouchdb';
 import * as ids from '../utils/ids';
 import boardDB from './board';
+import sync from './sync';
 
 let userDataPath = require('electron').remote.getGlobal('sharedObject').userDataPath;
 let db = new PouchDB(path.join(userDataPath, '/team'));
+
+sync.doSync(db.name, 'http://localhost:5984/team');
 
 const addPersonalTeamIfMissed = function (retrieveAllResult) {
   let missed = true;
